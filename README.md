@@ -1,7 +1,8 @@
 ### About
 <p align="center">
 This repo is a fork of chuanqi305's rscnn, a CNN framework based on RenderScript. 
-
+</p>
+<p align="center">
 The purpose of this repo is to demonstrate an implementation for deploying prebuilt detection models from Caffe (using MobileNetv1 + SSD) onto an Android device.
 </p>
 
