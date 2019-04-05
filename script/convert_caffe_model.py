@@ -1,10 +1,10 @@
-import numpy as np  
-import sys,os  
+import numpy as np
+import sys,os
 import cv2
 import argparse
-caffe_root = '/home/yaochuanqi/work/ssd/caffe'
+caffe_root = '/Users/glenn.wolfe/caffe-ssd'
 sys.path.insert(0, os.path.join(caffe_root, 'python'))
-import caffe  
+import caffe
 
 def get_aligned(c):
     if c == 1: #dw
@@ -17,7 +17,7 @@ def get_layer_names(net):
     all_layer_names = []
     names = net._layer_names
     for i in range(len(names)):
-       all_layer_names = all_layer_names + [names[i]] 
+       all_layer_names = all_layer_names + [names[i]]
     return all_layer_names
 
 def get_layer_by_name(net, name):
@@ -51,7 +51,7 @@ def convert_net(net, save_dir):
 
                 if len(shape) == 1:
                    if layer_type == "Convolution" or layer_type == "Deconvolution":
-                       pad = get_aligned(shape[0]) - shape[0] 
+                       pad = get_aligned(shape[0]) - shape[0]
                        tosave = np.pad(tosave, (0,pad), "constant")
                 else:
                    outc = shape[0]
@@ -101,7 +101,7 @@ if __name__ == '__main__':
     )
     FLAGS, unparsed = parser.parse_known_args()
 
-    net = caffe.Net(FLAGS.model, FLAGS.weights, caffe.TEST)  
+    net = caffe.Net(FLAGS.model, FLAGS.weights, caffe.TEST)
     convert_net(net, FLAGS.savedir)
     os.system("cp " + FLAGS.model + " " + FLAGS.savedir)
 
