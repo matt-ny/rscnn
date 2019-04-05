@@ -6,8 +6,8 @@ The purpose of this repo is to demonstrate an implementation for deploying prebu
 </p>
 
 <p align="center">
-  <img src="/images/screenshot1.jpg" width="100" syle="padding: 10px" >
-  <img src="/images/screenshot2.jpg" width="100" syle="padding: 10px" >
+  <img src="/images/screenshot1.jpg" width="100" syle="padding: 40px" >
+  <img src="/images/screenshot2.jpg" width="100" syle="padding: 40px" >
 </p>
 
 ### What You'll Need
