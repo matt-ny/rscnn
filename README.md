@@ -5,17 +5,8 @@ The purpose of this repo is to demonstrate an implementation for deploying prebu
 
 
 <p align="center">
-  <img src="/images/screenshot1.jpg" width="350" >
-  <img src="/images/screenshot2.jpg" width="350" >
-</p>
-
-
-<p align="right">
-<img width="100" height="180"  src="https://github.com/gWOLF3/rscnn/images/Screenshot_20190404-201919.jpg">
-</p>
-
-<p align="left">
-<img width="100" height="180"  src="https://github.com/gWOLF3/rscnn/images/Screenshot_20190404-202225.jpg">
+  <img src="/images/screenshot1.jpg" width="80" height="120" >
+  <img src="/images/screenshot2.jpg" width="80" height="120" >
 </p>
 
 ### Usage
