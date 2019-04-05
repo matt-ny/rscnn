@@ -62,8 +62,10 @@ public class PhotoViewHelper {
             canvas.drawText(cls + ":" + prob, rect[0], textTop ,textPaint);
             canvas.drawRect(rect[0], rect[1], rect[2], rect[3], rectPaint);
         }
-        canvas.save(Canvas.ALL_SAVE_FLAG);
+        canvas.save();
         canvas.restore();
+        Log.d("bmp", bmp.toString());
         return bmp;
+
     }
 }
