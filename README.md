@@ -1,4 +1,6 @@
-### About
+<p align="center">
+<text="About" style="bold" >
+</p>
 <p align="center">
 This repo is a fork of chuanqi305's rscnn, a CNN framework based on RenderScript. 
 </p>
