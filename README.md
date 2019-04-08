@@ -8,6 +8,8 @@ The purpose of this repo is to demonstrate an implementation for **deploying pre
 <p align="left">
   <img src="/images/screenshot1.jpg" width="100" syle="padding: 40px" >
   <img src="/images/screenshot2.jpg" width="100" syle="padding: 40px" >
+  <img src="/images/screenshot3.jpg" width="100" syle="padding: 40px" >
+
 </p>
 
 ### What You'll Need
