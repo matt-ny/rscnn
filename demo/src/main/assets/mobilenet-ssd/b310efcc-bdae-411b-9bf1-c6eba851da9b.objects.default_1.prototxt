@@ -12,17 +12,24 @@ layer {
   bottom: "data"
   top: "conv0"
   param {
-    lr_mult: 0.10000000149
-    decay_mult: 0.10000000149
+    lr_mult: 1.0
+    decay_mult: 1.0
+  }
+  param {
+    lr_mult: 2.0
+    decay_mult: 0.0
   }
   convolution_param {
     num_output: 32
-    bias_term: true
     pad: 1
     kernel_size: 3
     stride: 2
     weight_filler {
       type: "msra"
+    }
+    bias_filler {
+      type: "constant"
+      value: 0.0
     }
   }
 }
@@ -38,17 +45,25 @@ layer {
   bottom: "conv0"
   top: "conv1/dw"
   param {
-    lr_mult: 0.10000000149
-    decay_mult: 0.10000000149
+    lr_mult: 1.0
+    decay_mult: 1.0
+  }
+  param {
+    lr_mult: 2.0
+    decay_mult: 0.0
   }
   convolution_param {
     num_output: 32
-    bias_term: true
     pad: 1
     kernel_size: 3
     group: 32
+    engine: CAFFE
     weight_filler {
       type: "msra"
+    }
+    bias_filler {
+      type: "constant"
+      value: 0.0
     }
   }
 }
@@ -64,15 +79,22 @@ layer {
   bottom: "conv1/dw"
   top: "conv1"
   param {
-    lr_mult: 0.10000000149
-    decay_mult: 0.10000000149
+    lr_mult: 1.0
+    decay_mult: 1.0
+  }
+  param {
+    lr_mult: 2.0
+    decay_mult: 0.0
   }
   convolution_param {
     num_output: 64
-    bias_term: true
     kernel_size: 1
     weight_filler {
       type: "msra"
+    }
+    bias_filler {
+      type: "constant"
+      value: 0.0
     }
   }
 }
@@ -88,18 +110,26 @@ layer {
   bottom: "conv1"
   top: "conv2/dw"
   param {
-    lr_mult: 0.10000000149
-    decay_mult: 0.10000000149
+    lr_mult: 1.0
+    decay_mult: 1.0
+  }
+  param {
+    lr_mult: 2.0
+    decay_mult: 0.0
   }
   convolution_param {
     num_output: 64
-    bias_term: true
     pad: 1
     kernel_size: 3
-    group: 64
     stride: 2
+    group: 64
+    engine: CAFFE
     weight_filler {
       type: "msra"
+    }
+    bias_filler {
+      type: "constant"
+      value: 0.0
     }
   }
 }
@@ -115,15 +145,22 @@ layer {
   bottom: "conv2/dw"
   top: "conv2"
   param {
-    lr_mult: 0.10000000149
-    decay_mult: 0.10000000149
+    lr_mult: 1.0
+    decay_mult: 1.0
+  }
+  param {
+    lr_mult: 2.0
+    decay_mult: 0.0
   }
   convolution_param {
     num_output: 128
-    bias_term: true
     kernel_size: 1
     weight_filler {
       type: "msra"
+    }
+    bias_filler {
+      type: "constant"
+      value: 0.0
     }
   }
 }
@@ -139,17 +176,25 @@ layer {
   bottom: "conv2"
   top: "conv3/dw"
   param {
-    lr_mult: 0.10000000149
-    decay_mult: 0.10000000149
+    lr_mult: 1.0
+    decay_mult: 1.0
+  }
+  param {
+    lr_mult: 2.0
+    decay_mult: 0.0
   }
   convolution_param {
     num_output: 128
-    bias_term: true
     pad: 1
     kernel_size: 3
     group: 128
+    engine: CAFFE
     weight_filler {
       type: "msra"
+    }
+    bias_filler {
+      type: "constant"
+      value: 0.0
     }
   }
 }
@@ -165,15 +210,22 @@ layer {
   bottom: "conv3/dw"
   top: "conv3"
   param {
-    lr_mult: 0.10000000149
-    decay_mult: 0.10000000149
+    lr_mult: 1.0
+    decay_mult: 1.0
+  }
+  param {
+    lr_mult: 2.0
+    decay_mult: 0.0
   }
   convolution_param {
     num_output: 128
-    bias_term: true
     kernel_size: 1
     weight_filler {
       type: "msra"
+    }
+    bias_filler {
+      type: "constant"
+      value: 0.0
     }
   }
 }
@@ -189,18 +241,26 @@ layer {
   bottom: "conv3"
   top: "conv4/dw"
   param {
-    lr_mult: 0.10000000149
-    decay_mult: 0.10000000149
+    lr_mult: 1.0
+    decay_mult: 1.0
+  }
+  param {
+    lr_mult: 2.0
+    decay_mult: 0.0
   }
   convolution_param {
     num_output: 128
-    bias_term: true
     pad: 1
     kernel_size: 3
-    group: 128
     stride: 2
+    group: 128
+    engine: CAFFE
     weight_filler {
       type: "msra"
+    }
+    bias_filler {
+      type: "constant"
+      value: 0.0
     }
   }
 }
@@ -216,15 +276,22 @@ layer {
   bottom: "conv4/dw"
   top: "conv4"
   param {
-    lr_mult: 0.10000000149
-    decay_mult: 0.10000000149
+    lr_mult: 1.0
+    decay_mult: 1.0
+  }
+  param {
+    lr_mult: 2.0
+    decay_mult: 0.0
   }
   convolution_param {
     num_output: 256
-    bias_term: true
     kernel_size: 1
     weight_filler {
       type: "msra"
+    }
+    bias_filler {
+      type: "constant"
+      value: 0.0
     }
   }
 }
@@ -240,17 +307,25 @@ layer {
   bottom: "conv4"
   top: "conv5/dw"
   param {
-    lr_mult: 0.10000000149
-    decay_mult: 0.10000000149
+    lr_mult: 1.0
+    decay_mult: 1.0
+  }
+  param {
+    lr_mult: 2.0
+    decay_mult: 0.0
   }
   convolution_param {
     num_output: 256
-    bias_term: true
     pad: 1
     kernel_size: 3
     group: 256
+    engine: CAFFE
     weight_filler {
       type: "msra"
+    }
+    bias_filler {
+      type: "constant"
+      value: 0.0
     }
   }
 }
@@ -266,15 +341,22 @@ layer {
   bottom: "conv5/dw"
   top: "conv5"
   param {
-    lr_mult: 0.10000000149
-    decay_mult: 0.10000000149
+    lr_mult: 1.0
+    decay_mult: 1.0
+  }
+  param {
+    lr_mult: 2.0
+    decay_mult: 0.0
   }
   convolution_param {
     num_output: 256
-    bias_term: true
     kernel_size: 1
     weight_filler {
       type: "msra"
+    }
+    bias_filler {
+      type: "constant"
+      value: 0.0
     }
   }
 }
@@ -290,18 +372,26 @@ layer {
   bottom: "conv5"
   top: "conv6/dw"
   param {
-    lr_mult: 0.10000000149
-    decay_mult: 0.10000000149
+    lr_mult: 1.0
+    decay_mult: 1.0
+  }
+  param {
+    lr_mult: 2.0
+    decay_mult: 0.0
   }
   convolution_param {
     num_output: 256
-    bias_term: true
     pad: 1
     kernel_size: 3
-    group: 256
     stride: 2
+    group: 256
+    engine: CAFFE
     weight_filler {
       type: "msra"
+    }
+    bias_filler {
+      type: "constant"
+      value: 0.0
     }
   }
 }
@@ -317,15 +407,22 @@ layer {
   bottom: "conv6/dw"
   top: "conv6"
   param {
-    lr_mult: 0.10000000149
-    decay_mult: 0.10000000149
+    lr_mult: 1.0
+    decay_mult: 1.0
+  }
+  param {
+    lr_mult: 2.0
+    decay_mult: 0.0
   }
   convolution_param {
     num_output: 512
-    bias_term: true
     kernel_size: 1
     weight_filler {
       type: "msra"
+    }
+    bias_filler {
+      type: "constant"
+      value: 0.0
     }
   }
 }
@@ -341,17 +438,25 @@ layer {
   bottom: "conv6"
   top: "conv7/dw"
   param {
-    lr_mult: 0.10000000149
-    decay_mult: 0.10000000149
+    lr_mult: 1.0
+    decay_mult: 1.0
+  }
+  param {
+    lr_mult: 2.0
+    decay_mult: 0.0
   }
   convolution_param {
     num_output: 512
-    bias_term: true
     pad: 1
     kernel_size: 3
     group: 512
+    engine: CAFFE
     weight_filler {
       type: "msra"
+    }
+    bias_filler {
+      type: "constant"
+      value: 0.0
     }
   }
 }
@@ -367,15 +472,22 @@ layer {
   bottom: "conv7/dw"
   top: "conv7"
   param {
-    lr_mult: 0.10000000149
-    decay_mult: 0.10000000149
+    lr_mult: 1.0
+    decay_mult: 1.0
+  }
+  param {
+    lr_mult: 2.0
+    decay_mult: 0.0
   }
   convolution_param {
     num_output: 512
-    bias_term: true
     kernel_size: 1
     weight_filler {
       type: "msra"
+    }
+    bias_filler {
+      type: "constant"
+      value: 0.0
     }
   }
 }
@@ -391,17 +503,25 @@ layer {
   bottom: "conv7"
   top: "conv8/dw"
   param {
-    lr_mult: 0.10000000149
-    decay_mult: 0.10000000149
+    lr_mult: 1.0
+    decay_mult: 1.0
+  }
+  param {
+    lr_mult: 2.0
+    decay_mult: 0.0
   }
   convolution_param {
     num_output: 512
-    bias_term: true
     pad: 1
     kernel_size: 3
     group: 512
+    engine: CAFFE
     weight_filler {
       type: "msra"
+    }
+    bias_filler {
+      type: "constant"
+      value: 0.0
     }
   }
 }
@@ -417,15 +537,22 @@ layer {
   bottom: "conv8/dw"
   top: "conv8"
   param {
-    lr_mult: 0.10000000149
-    decay_mult: 0.10000000149
+    lr_mult: 1.0
+    decay_mult: 1.0
+  }
+  param {
+    lr_mult: 2.0
+    decay_mult: 0.0
   }
   convolution_param {
     num_output: 512
-    bias_term: true
     kernel_size: 1
     weight_filler {
       type: "msra"
+    }
+    bias_filler {
+      type: "constant"
+      value: 0.0
     }
   }
 }
@@ -441,17 +568,25 @@ layer {
   bottom: "conv8"
   top: "conv9/dw"
   param {
-    lr_mult: 0.10000000149
-    decay_mult: 0.10000000149
+    lr_mult: 1.0
+    decay_mult: 1.0
+  }
+  param {
+    lr_mult: 2.0
+    decay_mult: 0.0
   }
   convolution_param {
     num_output: 512
-    bias_term: true
     pad: 1
     kernel_size: 3
     group: 512
+    engine: CAFFE
     weight_filler {
       type: "msra"
+    }
+    bias_filler {
+      type: "constant"
+      value: 0.0
     }
   }
 }
@@ -467,15 +602,22 @@ layer {
   bottom: "conv9/dw"
   top: "conv9"
   param {
-    lr_mult: 0.10000000149
-    decay_mult: 0.10000000149
+    lr_mult: 1.0
+    decay_mult: 1.0
+  }
+  param {
+    lr_mult: 2.0
+    decay_mult: 0.0
   }
   convolution_param {
     num_output: 512
-    bias_term: true
     kernel_size: 1
     weight_filler {
       type: "msra"
+    }
+    bias_filler {
+      type: "constant"
+      value: 0.0
     }
   }
 }
@@ -491,17 +633,25 @@ layer {
   bottom: "conv9"
   top: "conv10/dw"
   param {
-    lr_mult: 0.10000000149
-    decay_mult: 0.10000000149
+    lr_mult: 1.0
+    decay_mult: 1.0
+  }
+  param {
+    lr_mult: 2.0
+    decay_mult: 0.0
   }
   convolution_param {
     num_output: 512
-    bias_term: true
     pad: 1
     kernel_size: 3
     group: 512
+    engine: CAFFE
     weight_filler {
       type: "msra"
+    }
+    bias_filler {
+      type: "constant"
+      value: 0.0
     }
   }
 }
@@ -517,15 +667,22 @@ layer {
   bottom: "conv10/dw"
   top: "conv10"
   param {
-    lr_mult: 0.10000000149
-    decay_mult: 0.10000000149
+    lr_mult: 1.0
+    decay_mult: 1.0
+  }
+  param {
+    lr_mult: 2.0
+    decay_mult: 0.0
   }
   convolution_param {
     num_output: 512
-    bias_term: true
     kernel_size: 1
     weight_filler {
       type: "msra"
+    }
+    bias_filler {
+      type: "constant"
+      value: 0.0
     }
   }
 }
@@ -541,17 +698,25 @@ layer {
   bottom: "conv10"
   top: "conv11/dw"
   param {
-    lr_mult: 0.10000000149
-    decay_mult: 0.10000000149
+    lr_mult: 1.0
+    decay_mult: 1.0
+  }
+  param {
+    lr_mult: 2.0
+    decay_mult: 0.0
   }
   convolution_param {
     num_output: 512
-    bias_term: true
     pad: 1
     kernel_size: 3
     group: 512
+    engine: CAFFE
     weight_filler {
       type: "msra"
+    }
+    bias_filler {
+      type: "constant"
+      value: 0.0
     }
   }
 }
@@ -567,15 +732,22 @@ layer {
   bottom: "conv11/dw"
   top: "conv11"
   param {
-    lr_mult: 0.10000000149
-    decay_mult: 0.10000000149
+    lr_mult: 1.0
+    decay_mult: 1.0
+  }
+  param {
+    lr_mult: 2.0
+    decay_mult: 0.0
   }
   convolution_param {
     num_output: 512
-    bias_term: true
     kernel_size: 1
     weight_filler {
       type: "msra"
+    }
+    bias_filler {
+      type: "constant"
+      value: 0.0
     }
   }
 }
@@ -591,18 +763,26 @@ layer {
   bottom: "conv11"
   top: "conv12/dw"
   param {
-    lr_mult: 0.10000000149
-    decay_mult: 0.10000000149
+    lr_mult: 1.0
+    decay_mult: 1.0
+  }
+  param {
+    lr_mult: 2.0
+    decay_mult: 0.0
   }
   convolution_param {
     num_output: 512
-    bias_term: true
     pad: 1
     kernel_size: 3
-    group: 512
     stride: 2
+    group: 512
+    engine: CAFFE
     weight_filler {
       type: "msra"
+    }
+    bias_filler {
+      type: "constant"
+      value: 0.0
     }
   }
 }
@@ -618,15 +798,22 @@ layer {
   bottom: "conv12/dw"
   top: "conv12"
   param {
-    lr_mult: 0.10000000149
-    decay_mult: 0.10000000149
+    lr_mult: 1.0
+    decay_mult: 1.0
+  }
+  param {
+    lr_mult: 2.0
+    decay_mult: 0.0
   }
   convolution_param {
     num_output: 1024
-    bias_term: true
     kernel_size: 1
     weight_filler {
       type: "msra"
+    }
+    bias_filler {
+      type: "constant"
+      value: 0.0
     }
   }
 }
@@ -642,17 +829,25 @@ layer {
   bottom: "conv12"
   top: "conv13/dw"
   param {
-    lr_mult: 0.10000000149
-    decay_mult: 0.10000000149
+    lr_mult: 1.0
+    decay_mult: 1.0
+  }
+  param {
+    lr_mult: 2.0
+    decay_mult: 0.0
   }
   convolution_param {
     num_output: 1024
-    bias_term: true
     pad: 1
     kernel_size: 3
     group: 1024
+    engine: CAFFE
     weight_filler {
       type: "msra"
+    }
+    bias_filler {
+      type: "constant"
+      value: 0.0
     }
   }
 }
@@ -668,15 +863,22 @@ layer {
   bottom: "conv13/dw"
   top: "conv13"
   param {
-    lr_mult: 0.10000000149
-    decay_mult: 0.10000000149
+    lr_mult: 1.0
+    decay_mult: 1.0
+  }
+  param {
+    lr_mult: 2.0
+    decay_mult: 0.0
   }
   convolution_param {
     num_output: 1024
-    bias_term: true
     kernel_size: 1
     weight_filler {
       type: "msra"
+    }
+    bias_filler {
+      type: "constant"
+      value: 0.0
     }
   }
 }
@@ -692,15 +894,22 @@ layer {
   bottom: "conv13"
   top: "conv14_1"
   param {
-    lr_mult: 0.10000000149
-    decay_mult: 0.10000000149
+    lr_mult: 1.0
+    decay_mult: 1.0
+  }
+  param {
+    lr_mult: 2.0
+    decay_mult: 0.0
   }
   convolution_param {
     num_output: 256
-    bias_term: true
     kernel_size: 1
     weight_filler {
       type: "msra"
+    }
+    bias_filler {
+      type: "constant"
+      value: 0.0
     }
   }
 }
@@ -716,17 +925,24 @@ layer {
   bottom: "conv14_1"
   top: "conv14_2"
   param {
-    lr_mult: 0.10000000149
-    decay_mult: 0.10000000149
+    lr_mult: 1.0
+    decay_mult: 1.0
+  }
+  param {
+    lr_mult: 2.0
+    decay_mult: 0.0
   }
   convolution_param {
     num_output: 512
-    bias_term: true
     pad: 1
     kernel_size: 3
     stride: 2
     weight_filler {
       type: "msra"
+    }
+    bias_filler {
+      type: "constant"
+      value: 0.0
     }
   }
 }
@@ -742,15 +958,22 @@ layer {
   bottom: "conv14_2"
   top: "conv15_1"
   param {
-    lr_mult: 0.10000000149
-    decay_mult: 0.10000000149
+    lr_mult: 1.0
+    decay_mult: 1.0
+  }
+  param {
+    lr_mult: 2.0
+    decay_mult: 0.0
   }
   convolution_param {
     num_output: 128
-    bias_term: true
     kernel_size: 1
     weight_filler {
       type: "msra"
+    }
+    bias_filler {
+      type: "constant"
+      value: 0.0
     }
   }
 }
@@ -766,17 +989,24 @@ layer {
   bottom: "conv15_1"
   top: "conv15_2"
   param {
-    lr_mult: 0.10000000149
-    decay_mult: 0.10000000149
+    lr_mult: 1.0
+    decay_mult: 1.0
+  }
+  param {
+    lr_mult: 2.0
+    decay_mult: 0.0
   }
   convolution_param {
     num_output: 256
-    bias_term: true
     pad: 1
     kernel_size: 3
     stride: 2
     weight_filler {
       type: "msra"
+    }
+    bias_filler {
+      type: "constant"
+      value: 0.0
     }
   }
 }
@@ -792,15 +1022,22 @@ layer {
   bottom: "conv15_2"
   top: "conv16_1"
   param {
-    lr_mult: 0.10000000149
-    decay_mult: 0.10000000149
+    lr_mult: 1.0
+    decay_mult: 1.0
+  }
+  param {
+    lr_mult: 2.0
+    decay_mult: 0.0
   }
   convolution_param {
     num_output: 128
-    bias_term: true
     kernel_size: 1
     weight_filler {
       type: "msra"
+    }
+    bias_filler {
+      type: "constant"
+      value: 0.0
     }
   }
 }
@@ -816,17 +1053,24 @@ layer {
   bottom: "conv16_1"
   top: "conv16_2"
   param {
-    lr_mult: 0.10000000149
-    decay_mult: 0.10000000149
+    lr_mult: 1.0
+    decay_mult: 1.0
+  }
+  param {
+    lr_mult: 2.0
+    decay_mult: 0.0
   }
   convolution_param {
     num_output: 256
-    bias_term: true
     pad: 1
     kernel_size: 3
     stride: 2
     weight_filler {
       type: "msra"
+    }
+    bias_filler {
+      type: "constant"
+      value: 0.0
     }
   }
 }
@@ -842,15 +1086,22 @@ layer {
   bottom: "conv16_2"
   top: "conv17_1"
   param {
-    lr_mult: 0.10000000149
-    decay_mult: 0.10000000149
+    lr_mult: 1.0
+    decay_mult: 1.0
+  }
+  param {
+    lr_mult: 2.0
+    decay_mult: 0.0
   }
   convolution_param {
     num_output: 64
-    bias_term: true
     kernel_size: 1
     weight_filler {
       type: "msra"
+    }
+    bias_filler {
+      type: "constant"
+      value: 0.0
     }
   }
 }
@@ -866,17 +1117,24 @@ layer {
   bottom: "conv17_1"
   top: "conv17_2"
   param {
-    lr_mult: 0.10000000149
-    decay_mult: 0.10000000149
+    lr_mult: 1.0
+    decay_mult: 1.0
+  }
+  param {
+    lr_mult: 2.0
+    decay_mult: 0.0
   }
   convolution_param {
     num_output: 128
-    bias_term: true
     pad: 1
     kernel_size: 3
     stride: 2
     weight_filler {
       type: "msra"
+    }
+    bias_filler {
+      type: "constant"
+      value: 0.0
     }
   }
 }
@@ -892,16 +1150,15 @@ layer {
   bottom: "conv11"
   top: "conv11_mbox_loc"
   param {
-    lr_mult: 0.10000000149
-    decay_mult: 0.10000000149
+    lr_mult: 1.0
+    decay_mult: 1.0
   }
   param {
-    lr_mult: 0.20000000298
+    lr_mult: 2.0
     decay_mult: 0.0
   }
   convolution_param {
     num_output: 12
-    bias_term: true
     kernel_size: 1
     weight_filler {
       type: "msra"
@@ -934,7 +1191,7 @@ layer {
   }
 }
 layer {
-  name: "conv11_mbox_conf"
+  name: "conv11_mbox_conf_ft"
   type: "Convolution"
   bottom: "conv11"
   top: "conv11_mbox_conf"
@@ -947,8 +1204,7 @@ layer {
     decay_mult: 0.0
   }
   convolution_param {
-    num_output: 63
-    bias_term: true
+    num_output: 12
     kernel_size: 1
     weight_filler {
       type: "msra"
@@ -991,10 +1247,10 @@ layer {
     aspect_ratio: 2.0
     flip: true
     clip: false
-    variance: 0.10000000149
-    variance: 0.10000000149
-    variance: 0.20000000298
-    variance: 0.20000000298
+    variance: 0.1
+    variance: 0.1
+    variance: 0.2
+    variance: 0.2
     offset: 0.5
   }
 }
@@ -1004,16 +1260,15 @@ layer {
   bottom: "conv13"
   top: "conv13_mbox_loc"
   param {
-    lr_mult: 0.10000000149
-    decay_mult: 0.10000000149
+    lr_mult: 1.0
+    decay_mult: 1.0
   }
   param {
-    lr_mult: 0.20000000298
+    lr_mult: 2.0
     decay_mult: 0.0
   }
   convolution_param {
     num_output: 24
-    bias_term: true
     kernel_size: 1
     weight_filler {
       type: "msra"
@@ -1046,7 +1301,7 @@ layer {
   }
 }
 layer {
-  name: "conv13_mbox_conf"
+  name: "conv13_mbox_conf_ft"
   type: "Convolution"
   bottom: "conv13"
   top: "conv13_mbox_conf"
@@ -1059,8 +1314,7 @@ layer {
     decay_mult: 0.0
   }
   convolution_param {
-    num_output: 126
-    bias_term: true
+    num_output: 24
     kernel_size: 1
     weight_filler {
       type: "msra"
@@ -1105,10 +1359,10 @@ layer {
     aspect_ratio: 3.0
     flip: true
     clip: false
-    variance: 0.10000000149
-    variance: 0.10000000149
-    variance: 0.20000000298
-    variance: 0.20000000298
+    variance: 0.1
+    variance: 0.1
+    variance: 0.2
+    variance: 0.2
     offset: 0.5
   }
 }
@@ -1118,16 +1372,15 @@ layer {
   bottom: "conv14_2"
   top: "conv14_2_mbox_loc"
   param {
-    lr_mult: 0.10000000149
-    decay_mult: 0.10000000149
+    lr_mult: 1.0
+    decay_mult: 1.0
   }
   param {
-    lr_mult: 0.20000000298
+    lr_mult: 2.0
     decay_mult: 0.0
   }
   convolution_param {
     num_output: 24
-    bias_term: true
     kernel_size: 1
     weight_filler {
       type: "msra"
@@ -1160,7 +1413,7 @@ layer {
   }
 }
 layer {
-  name: "conv14_2_mbox_conf"
+  name: "conv14_2_mbox_conf_ft"
   type: "Convolution"
   bottom: "conv14_2"
   top: "conv14_2_mbox_conf"
@@ -1173,8 +1426,7 @@ layer {
     decay_mult: 0.0
   }
   convolution_param {
-    num_output: 126
-    bias_term: true
+    num_output: 24
     kernel_size: 1
     weight_filler {
       type: "msra"
@@ -1219,10 +1471,10 @@ layer {
     aspect_ratio: 3.0
     flip: true
     clip: false
-    variance: 0.10000000149
-    variance: 0.10000000149
-    variance: 0.20000000298
-    variance: 0.20000000298
+    variance: 0.1
+    variance: 0.1
+    variance: 0.2
+    variance: 0.2
     offset: 0.5
   }
 }
@@ -1232,16 +1484,15 @@ layer {
   bottom: "conv15_2"
   top: "conv15_2_mbox_loc"
   param {
-    lr_mult: 0.10000000149
-    decay_mult: 0.10000000149
+    lr_mult: 1.0
+    decay_mult: 1.0
   }
   param {
-    lr_mult: 0.20000000298
+    lr_mult: 2.0
     decay_mult: 0.0
   }
   convolution_param {
     num_output: 24
-    bias_term: true
     kernel_size: 1
     weight_filler {
       type: "msra"
@@ -1274,7 +1525,7 @@ layer {
   }
 }
 layer {
-  name: "conv15_2_mbox_conf"
+  name: "conv15_2_mbox_conf_ft"
   type: "Convolution"
   bottom: "conv15_2"
   top: "conv15_2_mbox_conf"
@@ -1287,8 +1538,7 @@ layer {
     decay_mult: 0.0
   }
   convolution_param {
-    num_output: 126
-    bias_term: true
+    num_output: 24
     kernel_size: 1
     weight_filler {
       type: "msra"
@@ -1333,10 +1583,10 @@ layer {
     aspect_ratio: 3.0
     flip: true
     clip: false
-    variance: 0.10000000149
-    variance: 0.10000000149
-    variance: 0.20000000298
-    variance: 0.20000000298
+    variance: 0.1
+    variance: 0.1
+    variance: 0.2
+    variance: 0.2
     offset: 0.5
   }
 }
@@ -1346,16 +1596,15 @@ layer {
   bottom: "conv16_2"
   top: "conv16_2_mbox_loc"
   param {
-    lr_mult: 0.10000000149
-    decay_mult: 0.10000000149
+    lr_mult: 1.0
+    decay_mult: 1.0
   }
   param {
-    lr_mult: 0.20000000298
+    lr_mult: 2.0
     decay_mult: 0.0
   }
   convolution_param {
     num_output: 24
-    bias_term: true
     kernel_size: 1
     weight_filler {
       type: "msra"
@@ -1388,7 +1637,7 @@ layer {
   }
 }
 layer {
-  name: "conv16_2_mbox_conf"
+  name: "conv16_2_mbox_conf_ft"
   type: "Convolution"
   bottom: "conv16_2"
   top: "conv16_2_mbox_conf"
@@ -1401,8 +1650,7 @@ layer {
     decay_mult: 0.0
   }
   convolution_param {
-    num_output: 126
-    bias_term: true
+    num_output: 24
     kernel_size: 1
     weight_filler {
       type: "msra"
@@ -1447,10 +1695,10 @@ layer {
     aspect_ratio: 3.0
     flip: true
     clip: false
-    variance: 0.10000000149
-    variance: 0.10000000149
-    variance: 0.20000000298
-    variance: 0.20000000298
+    variance: 0.1
+    variance: 0.1
+    variance: 0.2
+    variance: 0.2
     offset: 0.5
   }
 }
@@ -1460,16 +1708,15 @@ layer {
   bottom: "conv17_2"
   top: "conv17_2_mbox_loc"
   param {
-    lr_mult: 0.10000000149
-    decay_mult: 0.10000000149
+    lr_mult: 1.0
+    decay_mult: 1.0
   }
   param {
-    lr_mult: 0.20000000298
+    lr_mult: 2.0
     decay_mult: 0.0
   }
   convolution_param {
     num_output: 24
-    bias_term: true
     kernel_size: 1
     weight_filler {
       type: "msra"
@@ -1502,7 +1749,7 @@ layer {
   }
 }
 layer {
-  name: "conv17_2_mbox_conf"
+  name: "conv17_2_mbox_conf_ft"
   type: "Convolution"
   bottom: "conv17_2"
   top: "conv17_2_mbox_conf"
@@ -1515,8 +1762,7 @@ layer {
     decay_mult: 0.0
   }
   convolution_param {
-    num_output: 126
-    bias_term: true
+    num_output: 24
     kernel_size: 1
     weight_filler {
       type: "msra"
@@ -1561,10 +1807,10 @@ layer {
     aspect_ratio: 3.0
     flip: true
     clip: false
-    variance: 0.10000000149
-    variance: 0.10000000149
-    variance: 0.20000000298
-    variance: 0.20000000298
+    variance: 0.1
+    variance: 0.1
+    variance: 0.2
+    variance: 0.2
     offset: 0.5
   }
 }
@@ -1619,7 +1865,7 @@ layer {
     shape {
       dim: 0
       dim: -1
-      dim: 21
+      dim: 4
     }
   }
 }
@@ -1652,11 +1898,11 @@ layer {
     phase: TEST
   }
   detection_output_param {
-    num_classes: 21
+    num_classes: 4
     share_location: true
     background_label_id: 0
     nms_param {
-      nms_threshold: 0.449999988079
+      nms_threshold: 0.45
       top_k: 100
     }
     code_type: CENTER_SIZE
