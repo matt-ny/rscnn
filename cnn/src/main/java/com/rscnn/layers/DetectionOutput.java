@@ -5,23 +5,27 @@ import com.rscnn.network.Layer;
 import com.rscnn.algorithm.NMS;
 import com.rscnn.utils.LogUtil;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+
+import android.util.Log;
 
 public class DetectionOutput extends Layer {
 
     private int numClasses;
     private boolean shareLocation = true;
     private int backgroundLabelId = 0;
-    private float nmsParamNmsThreshold = 0.3f;
+    private float nmsParamNmsThreshold = 0.2f;
     private int nmsParamTopK = 2;
     private float nmsParamEta = 1.0f;
     private String codeType = "CORNER";
     private boolean varianceEncodedInTarget = false;
     private int keepTopK = -1;
-    private float confidenceThreshold;
+    private float confidenceThreshold = 0.3f;
     private boolean visualize = false;
-    private float visualizeThreshold;
+    private float visualizeThreshold = 0.2f;
     private String saveFile;
 
     private int num_loc_classes;
@@ -188,13 +192,34 @@ public class DetectionOutput extends Layer {
         float[][][] boxes = decodeBBox(location, prior, variance);// 2252 * 4
 
         List<float[]> boxAndScore = new ArrayList<>();
+
+        Log.d("box[0]: ",Arrays.deepToString(boxes[0]));
+
         for(int i=1;i<numClasses;i++){//skip the background class
             float[][] box1 = boxes[0].clone();
+
+
             NMS.sortScores(box1,scores[i]);
-            int[] index = NMS.nmsScoreFilter(box1, scores[i], nmsParamTopK, nmsParamNmsThreshold);
+
+            Log.d("box1: ",Arrays.deepToString(box1));
+            Log.d("all-scores-return", Arrays.toString(scores[i]));
+            for (int k=1; k<scores[i].length; k++) {
+                if (scores[i][k] > scores[i][k-1]) {
+                Log.d("not-sorted-at ",k+ " "+scores[k]+" "+scores[k-1]);
+                }
+            }
+
+            int[] index = NMS.nmsScoreFilter(box1, scores[i], nmsParamTopK, .5f);
+            Log.d("survival-index",Arrays.toString(index));
+
+            Log.d("NMS Params: ","TopK: "+nmsParamTopK+" Thresh: "+nmsParamNmsThreshold);
             if(index.length>0){
                 for(int id:index){
-                    if(scores[i][id] < confidenceThreshold) break;
+                    if(scores[i][id] < 0.17f) {
+                        Log.d("scores","="+" in class: "+i+" the score: "+scores[i][id]+" is less than conf-thresh: "+confidenceThreshold);
+                        Log.d("conf-break", "hit!");
+                        break;
+                    }
                     if(Float.isNaN(scores[i][id])){//skip the NaN score, maybe not correct
                         continue;
                     }

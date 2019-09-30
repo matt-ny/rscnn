@@ -1,13 +1,17 @@
 package com.rscnn.preprocess;
 
+import java.util.Arrays;
+
 import android.graphics.Bitmap;
+import android.util.Log;
 
 import com.rscnn.postprocess.NetworkParameter;
 
 public class PreProcess {
     protected ROI roi = null;
-    protected float[] meanValueBGR = new float[]{102.9801f, 115.9465f, 122.7717f};
-    protected float scale = 1.f;
+    protected float[] meanValueBGR = new float[]{127.5f, 127.5f, 127.5f};
+    protected float scale1 = 0.007843f;
+    protected float scale = 0.007843f;
 
     public PreProcess() {
     }
@@ -29,7 +33,10 @@ public class PreProcess {
         float pixelMeanRed = meanValueBGR[2];
 
         int height = param.getNetworkInputHeight();
+        Log.d("network-input-height = ", String.valueOf(height));
+
         int width = param.getNetworkInputWidth();
+        Log.d("network-input-width = ", String.valueOf(width));
 
         float[] data = new float[height * width * 4];
         int[] pixels = new int[height * width];
@@ -42,6 +49,7 @@ public class PreProcess {
         }
         else {
             subImage = image;
+            Log.d("sub-image-height/width",String.valueOf(subImage.getWidth())+" "+String.valueOf(subImage.getHeight()));
         }
 
         if(subImage.getWidth()!= width || subImage.getHeight() != height){
@@ -62,6 +70,7 @@ public class PreProcess {
                 data[dataCount++] = (((k >> 8) & 0xFF) - pixelMeanGreen) * scale;
                 data[dataCount++] = (((k >> 16) & 0xFF) - pixelMeanRed) * scale;
                 data[dataCount++] = 0;
+                Log.d("scale = ",String.valueOf(scale));
             }
         }
 
@@ -69,6 +78,7 @@ public class PreProcess {
             subImage.recycle();
         }
 
+        Log.d("return preprocess",Arrays.toString(data));
         return new Object[]{data};
     }
 }

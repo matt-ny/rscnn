@@ -8,9 +8,11 @@ import com.rscnn.postprocess.NetworkParameter;
 import com.rscnn.postprocess.PostProcess;
 import com.rscnn.preprocess.PreProcess;
 import com.rscnn.utils.LogUtil;
+import android.util.Log;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
@@ -117,15 +119,30 @@ public class ConvNet {
 
     public List<DetectResult> detect(Bitmap bmp){
 
+        Log.d("detect!: ","HIT!");
         NetworkParameter param = new NetworkParameter();
         param.setNetworkInputHeight(networkInputHeight);
         param.setNetworkInputWidth(networkInputWidth);
 
         long temp = System.currentTimeMillis();
+
+        // call preProcess process()
         Object[] input = preProcess.process(bmp, param);
         layer.setInputData(input);
+
+        // Call LayerGraph execute()
         Map<String, Object> output =  layer.execute();
+
+        // logger
+//        for (Map.Entry<String, Object> entry : output.entrySet()) {
+//            Object this1 = entry.getValue();
+//            LogUtil.d("this: ",entry.getKey() + ":" + this1.toString());
+//        }
+
+        // Call PostProcess process()
         List<DetectResult> result= postProcess.process(bmp, param, output);
+        LogUtil.d("postProcess.process",Arrays.toString(result.toArray()));
+
         temp = System.currentTimeMillis() - temp;
         LogUtil.i("ConvNet","total: " + temp + " ms.");
         return result;

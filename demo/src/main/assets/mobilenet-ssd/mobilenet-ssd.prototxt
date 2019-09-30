@@ -21,6 +21,7 @@ layer {
   }
   convolution_param {
     num_output: 32
+    bias_term: true
     pad: 1
     kernel_size: 3
     stride: 2
@@ -54,10 +55,10 @@ layer {
   }
   convolution_param {
     num_output: 32
+    bias_term: true
     pad: 1
     kernel_size: 3
     group: 32
-    engine: CAFFE
     weight_filler {
       type: "msra"
     }
@@ -65,6 +66,7 @@ layer {
       type: "constant"
       value: 0.0
     }
+    engine: CAFFE
   }
 }
 layer {
@@ -88,6 +90,7 @@ layer {
   }
   convolution_param {
     num_output: 64
+    bias_term: true
     kernel_size: 1
     weight_filler {
       type: "msra"
@@ -119,11 +122,11 @@ layer {
   }
   convolution_param {
     num_output: 64
+    bias_term: true
     pad: 1
     kernel_size: 3
-    stride: 2
     group: 64
-    engine: CAFFE
+    stride: 2
     weight_filler {
       type: "msra"
     }
@@ -131,6 +134,7 @@ layer {
       type: "constant"
       value: 0.0
     }
+    engine: CAFFE
   }
 }
 layer {
@@ -154,6 +158,7 @@ layer {
   }
   convolution_param {
     num_output: 128
+    bias_term: true
     kernel_size: 1
     weight_filler {
       type: "msra"
@@ -185,10 +190,10 @@ layer {
   }
   convolution_param {
     num_output: 128
+    bias_term: true
     pad: 1
     kernel_size: 3
     group: 128
-    engine: CAFFE
     weight_filler {
       type: "msra"
     }
@@ -196,6 +201,7 @@ layer {
       type: "constant"
       value: 0.0
     }
+    engine: CAFFE
   }
 }
 layer {
@@ -219,6 +225,7 @@ layer {
   }
   convolution_param {
     num_output: 128
+    bias_term: true
     kernel_size: 1
     weight_filler {
       type: "msra"
@@ -250,11 +257,11 @@ layer {
   }
   convolution_param {
     num_output: 128
+    bias_term: true
     pad: 1
     kernel_size: 3
-    stride: 2
     group: 128
-    engine: CAFFE
+    stride: 2
     weight_filler {
       type: "msra"
     }
@@ -262,6 +269,7 @@ layer {
       type: "constant"
       value: 0.0
     }
+    engine: CAFFE
   }
 }
 layer {
@@ -285,6 +293,7 @@ layer {
   }
   convolution_param {
     num_output: 256
+    bias_term: true
     kernel_size: 1
     weight_filler {
       type: "msra"
@@ -316,10 +325,10 @@ layer {
   }
   convolution_param {
     num_output: 256
+    bias_term: true
     pad: 1
     kernel_size: 3
     group: 256
-    engine: CAFFE
     weight_filler {
       type: "msra"
     }
@@ -327,6 +336,7 @@ layer {
       type: "constant"
       value: 0.0
     }
+    engine: CAFFE
   }
 }
 layer {
@@ -350,6 +360,7 @@ layer {
   }
   convolution_param {
     num_output: 256
+    bias_term: true
     kernel_size: 1
     weight_filler {
       type: "msra"
@@ -381,11 +392,11 @@ layer {
   }
   convolution_param {
     num_output: 256
+    bias_term: true
     pad: 1
     kernel_size: 3
-    stride: 2
     group: 256
-    engine: CAFFE
+    stride: 2
     weight_filler {
       type: "msra"
     }
@@ -393,6 +404,7 @@ layer {
       type: "constant"
       value: 0.0
     }
+    engine: CAFFE
   }
 }
 layer {
@@ -416,6 +428,7 @@ layer {
   }
   convolution_param {
     num_output: 512
+    bias_term: true
     kernel_size: 1
     weight_filler {
       type: "msra"
@@ -447,10 +460,10 @@ layer {
   }
   convolution_param {
     num_output: 512
+    bias_term: true
     pad: 1
     kernel_size: 3
     group: 512
-    engine: CAFFE
     weight_filler {
       type: "msra"
     }
@@ -458,6 +471,7 @@ layer {
       type: "constant"
       value: 0.0
     }
+    engine: CAFFE
   }
 }
 layer {
@@ -481,6 +495,7 @@ layer {
   }
   convolution_param {
     num_output: 512
+    bias_term: true
     kernel_size: 1
     weight_filler {
       type: "msra"
@@ -512,10 +527,10 @@ layer {
   }
   convolution_param {
     num_output: 512
+    bias_term: true
     pad: 1
     kernel_size: 3
     group: 512
-    engine: CAFFE
     weight_filler {
       type: "msra"
     }
@@ -523,6 +538,7 @@ layer {
       type: "constant"
       value: 0.0
     }
+    engine: CAFFE
   }
 }
 layer {
@@ -546,6 +562,7 @@ layer {
   }
   convolution_param {
     num_output: 512
+    bias_term: true
     kernel_size: 1
     weight_filler {
       type: "msra"
@@ -577,10 +594,10 @@ layer {
   }
   convolution_param {
     num_output: 512
+    bias_term: true
     pad: 1
     kernel_size: 3
     group: 512
-    engine: CAFFE
     weight_filler {
       type: "msra"
     }
@@ -588,6 +605,7 @@ layer {
       type: "constant"
       value: 0.0
     }
+    engine: CAFFE
   }
 }
 layer {
@@ -611,6 +629,7 @@ layer {
   }
   convolution_param {
     num_output: 512
+    bias_term: true
     kernel_size: 1
     weight_filler {
       type: "msra"
@@ -642,10 +661,10 @@ layer {
   }
   convolution_param {
     num_output: 512
+    bias_term: true
     pad: 1
     kernel_size: 3
     group: 512
-    engine: CAFFE
     weight_filler {
       type: "msra"
     }
@@ -653,6 +672,7 @@ layer {
       type: "constant"
       value: 0.0
     }
+    engine: CAFFE
   }
 }
 layer {
@@ -676,6 +696,7 @@ layer {
   }
   convolution_param {
     num_output: 512
+    bias_term: true
     kernel_size: 1
     weight_filler {
       type: "msra"
@@ -707,10 +728,10 @@ layer {
   }
   convolution_param {
     num_output: 512
+    bias_term: true
     pad: 1
     kernel_size: 3
     group: 512
-    engine: CAFFE
     weight_filler {
       type: "msra"
     }
@@ -718,6 +739,7 @@ layer {
       type: "constant"
       value: 0.0
     }
+    engine: CAFFE
   }
 }
 layer {
@@ -741,6 +763,7 @@ layer {
   }
   convolution_param {
     num_output: 512
+    bias_term: true
     kernel_size: 1
     weight_filler {
       type: "msra"
@@ -772,11 +795,11 @@ layer {
   }
   convolution_param {
     num_output: 512
+    bias_term: true
     pad: 1
     kernel_size: 3
-    stride: 2
     group: 512
-    engine: CAFFE
+    stride: 2
     weight_filler {
       type: "msra"
     }
@@ -784,6 +807,7 @@ layer {
       type: "constant"
       value: 0.0
     }
+    engine: CAFFE
   }
 }
 layer {
@@ -807,6 +831,7 @@ layer {
   }
   convolution_param {
     num_output: 1024
+    bias_term: true
     kernel_size: 1
     weight_filler {
       type: "msra"
@@ -838,10 +863,10 @@ layer {
   }
   convolution_param {
     num_output: 1024
+    bias_term: true
     pad: 1
     kernel_size: 3
     group: 1024
-    engine: CAFFE
     weight_filler {
       type: "msra"
     }
@@ -849,6 +874,7 @@ layer {
       type: "constant"
       value: 0.0
     }
+    engine: CAFFE
   }
 }
 layer {
@@ -872,6 +898,7 @@ layer {
   }
   convolution_param {
     num_output: 1024
+    bias_term: true
     kernel_size: 1
     weight_filler {
       type: "msra"
@@ -903,6 +930,7 @@ layer {
   }
   convolution_param {
     num_output: 256
+    bias_term: true
     kernel_size: 1
     weight_filler {
       type: "msra"
@@ -934,6 +962,7 @@ layer {
   }
   convolution_param {
     num_output: 512
+    bias_term: true
     pad: 1
     kernel_size: 3
     stride: 2
@@ -967,6 +996,7 @@ layer {
   }
   convolution_param {
     num_output: 128
+    bias_term: true
     kernel_size: 1
     weight_filler {
       type: "msra"
@@ -998,6 +1028,7 @@ layer {
   }
   convolution_param {
     num_output: 256
+    bias_term: true
     pad: 1
     kernel_size: 3
     stride: 2
@@ -1031,6 +1062,7 @@ layer {
   }
   convolution_param {
     num_output: 128
+    bias_term: true
     kernel_size: 1
     weight_filler {
       type: "msra"
@@ -1062,6 +1094,7 @@ layer {
   }
   convolution_param {
     num_output: 256
+    bias_term: true
     pad: 1
     kernel_size: 3
     stride: 2
@@ -1095,6 +1128,7 @@ layer {
   }
   convolution_param {
     num_output: 64
+    bias_term: true
     kernel_size: 1
     weight_filler {
       type: "msra"
@@ -1126,6 +1160,7 @@ layer {
   }
   convolution_param {
     num_output: 128
+    bias_term: true
     pad: 1
     kernel_size: 3
     stride: 2
@@ -1159,6 +1194,7 @@ layer {
   }
   convolution_param {
     num_output: 12
+    bias_term: true
     kernel_size: 1
     weight_filler {
       type: "msra"
@@ -1205,6 +1241,7 @@ layer {
   }
   convolution_param {
     num_output: 12
+    bias_term: true
     kernel_size: 1
     weight_filler {
       type: "msra"
@@ -1247,10 +1284,10 @@ layer {
     aspect_ratio: 2.0
     flip: true
     clip: false
-    variance: 0.1
-    variance: 0.1
-    variance: 0.2
-    variance: 0.2
+    variance: 0.10000000149
+    variance: 0.10000000149
+    variance: 0.20000000298
+    variance: 0.20000000298
     offset: 0.5
   }
 }
@@ -1269,6 +1306,7 @@ layer {
   }
   convolution_param {
     num_output: 24
+    bias_term: true
     kernel_size: 1
     weight_filler {
       type: "msra"
@@ -1315,6 +1353,7 @@ layer {
   }
   convolution_param {
     num_output: 24
+    bias_term: true
     kernel_size: 1
     weight_filler {
       type: "msra"
@@ -1359,10 +1398,10 @@ layer {
     aspect_ratio: 3.0
     flip: true
     clip: false
-    variance: 0.1
-    variance: 0.1
-    variance: 0.2
-    variance: 0.2
+    variance: 0.10000000149
+    variance: 0.10000000149
+    variance: 0.20000000298
+    variance: 0.20000000298
     offset: 0.5
   }
 }
@@ -1381,6 +1420,7 @@ layer {
   }
   convolution_param {
     num_output: 24
+    bias_term: true
     kernel_size: 1
     weight_filler {
       type: "msra"
@@ -1427,6 +1467,7 @@ layer {
   }
   convolution_param {
     num_output: 24
+    bias_term: true
     kernel_size: 1
     weight_filler {
       type: "msra"
@@ -1471,10 +1512,10 @@ layer {
     aspect_ratio: 3.0
     flip: true
     clip: false
-    variance: 0.1
-    variance: 0.1
-    variance: 0.2
-    variance: 0.2
+    variance: 0.10000000149
+    variance: 0.10000000149
+    variance: 0.20000000298
+    variance: 0.20000000298
     offset: 0.5
   }
 }
@@ -1493,6 +1534,7 @@ layer {
   }
   convolution_param {
     num_output: 24
+    bias_term: true
     kernel_size: 1
     weight_filler {
       type: "msra"
@@ -1539,6 +1581,7 @@ layer {
   }
   convolution_param {
     num_output: 24
+    bias_term: true
     kernel_size: 1
     weight_filler {
       type: "msra"
@@ -1583,10 +1626,10 @@ layer {
     aspect_ratio: 3.0
     flip: true
     clip: false
-    variance: 0.1
-    variance: 0.1
-    variance: 0.2
-    variance: 0.2
+    variance: 0.10000000149
+    variance: 0.10000000149
+    variance: 0.20000000298
+    variance: 0.20000000298
     offset: 0.5
   }
 }
@@ -1605,6 +1648,7 @@ layer {
   }
   convolution_param {
     num_output: 24
+    bias_term: true
     kernel_size: 1
     weight_filler {
       type: "msra"
@@ -1651,6 +1695,7 @@ layer {
   }
   convolution_param {
     num_output: 24
+    bias_term: true
     kernel_size: 1
     weight_filler {
       type: "msra"
@@ -1695,10 +1740,10 @@ layer {
     aspect_ratio: 3.0
     flip: true
     clip: false
-    variance: 0.1
-    variance: 0.1
-    variance: 0.2
-    variance: 0.2
+    variance: 0.10000000149
+    variance: 0.10000000149
+    variance: 0.20000000298
+    variance: 0.20000000298
     offset: 0.5
   }
 }
@@ -1717,6 +1762,7 @@ layer {
   }
   convolution_param {
     num_output: 24
+    bias_term: true
     kernel_size: 1
     weight_filler {
       type: "msra"
@@ -1763,6 +1809,7 @@ layer {
   }
   convolution_param {
     num_output: 24
+    bias_term: true
     kernel_size: 1
     weight_filler {
       type: "msra"
@@ -1807,10 +1854,10 @@ layer {
     aspect_ratio: 3.0
     flip: true
     clip: false
-    variance: 0.1
-    variance: 0.1
-    variance: 0.2
-    variance: 0.2
+    variance: 0.10000000149
+    variance: 0.10000000149
+    variance: 0.20000000298
+    variance: 0.20000000298
     offset: 0.5
   }
 }
@@ -1902,7 +1949,7 @@ layer {
     share_location: true
     background_label_id: 0
     nms_param {
-      nms_threshold: 0.45
+      nms_threshold: 20.449999988079
       top_k: 100
     }
     code_type: CENTER_SIZE
