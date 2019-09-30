@@ -13,6 +13,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 
+import android.util.Log;
+
 import com.rscnn.example.R;
 import com.rscnn.model.MobileNetSSD;
 import com.rscnn.model.ObjectDetector;
@@ -41,10 +43,12 @@ public class MainActivity extends AppCompatActivity {
             String[] fileList = assetManager.list(modelPath);
             if (fileList.length != 0){
                 detector = new MobileNetSSD(rs, assetManager, modelPath);
+                Log.d("detected.hit!","no");
             }
             else {
                 String modelDir = Environment.getExternalStorageDirectory().getPath() + "/" + modelPath;
                 detector = new MobileNetSSD(rs, null, modelDir);
+                Log.d("detected.hit!","yes");
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -89,6 +93,7 @@ public class MainActivity extends AppCompatActivity {
             Bitmap image = cropImage(bmp);
             ImageView img = (ImageView) findViewById(R.id.imageView);
             List<DetectResult> result = detector.detect(image);
+            Log.d("detection", result.toString());
             Bitmap toDraw = PhotoViewHelper.drawTextAndRect(image, result);
             img.setImageBitmap(toDraw);
         } catch (IOException e) {

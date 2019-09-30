@@ -1,5 +1,8 @@
 package com.rscnn.layers;
 
+import android.util.Log;
+import java.util.Arrays;
+
 import com.rscnn.network.FeatureMap;
 import com.rscnn.network.Layer;
 import com.rscnn.algorithm.ShapeUtils;
@@ -83,11 +86,14 @@ public class Reshape extends Layer {
         shapeDimParsed = dim;
         if(reshapeFromTensorFlow){
             outputShape = dim.clone();
+            Log.d("outputShape: ",Arrays.toString(outputShape));
             allocFeatureMapNoBlock();//TODO: should use allocFeatureMapNoBlock
         }
         else{
-            outputShape = new int[]{dim[0],dim[2],dim[3],dim[1]};
-            int channels = outputShape[3];
+            outputShape = new int[]{dim[0],dim[1],dim[2],dim[3]};
+            Log.d("outputShape: ",Arrays.toString(outputShape));
+
+            int channels = outputShape[1];
             if(channels==2){//to channel2
                 allocFeatureMapNoBlock();
             }
