@@ -47,16 +47,16 @@ public class NMS {
         float xx2 = anchor1[2]<anchor2[2]?anchor1[2]:anchor2[2];
         float yy2 = anchor1[3]<anchor2[3]?anchor1[3]:anchor2[3];
 
-        float w = xx2 - xx1 + 1;
-        float h = yy2 - yy1 + 1;
+        float w = xx2 - xx1;
+        float h = yy2 - yy1;
         if(w<0||h<0){
             return 0;
         }
 
         float inter = w * h;
 
-        float anchor1_area1 = (anchor1[2] - anchor1[0] + 1)*(anchor1[3] - anchor1[1] + 1);
-        float anchor2_area1 = (anchor2[2] - anchor2[0] + 1)*(anchor2[3] - anchor2[1] + 1);
+        float anchor1_area1 = (anchor1[2] - anchor1[0])*(anchor1[3] - anchor1[1]);
+        float anchor2_area1 = (anchor2[2] - anchor2[0])*(anchor2[3] - anchor2[1]);
 
         return inter / (anchor1_area1 + anchor2_area1 - inter);
     }
