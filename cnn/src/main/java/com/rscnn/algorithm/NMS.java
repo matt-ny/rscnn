@@ -19,7 +19,7 @@ public class NMS {
         }
     }
 
-	private static int partitionScore(float[][] anchors, float scores[], int left, int right) {
+    private static int partitionScore(float[][] anchors, float scores[], int left, int right) {
         float pivot = scores[left];
         float[] pivotA = anchors[left];
         while (left < right) {
@@ -41,7 +41,7 @@ public class NMS {
         return left;
     }
 
-	private static float computeOverlapAreaRate(float[] anchor1, float[] anchor2){
+    private static float computeOverlapAreaRate(float[] anchor1, float[] anchor2){
         float xx1 = anchor1[0]>anchor2[0]?anchor1[0]:anchor2[0];
         float yy1 = anchor1[1]>anchor2[1]?anchor1[1]:anchor2[1];
         float xx2 = anchor1[2]<anchor2[2]?anchor1[2]:anchor2[2];
