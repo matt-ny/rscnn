@@ -60,7 +60,43 @@ public class NMS {
 
         return inter / (anchor1_area1 + anchor2_area1 - inter);
     }
+	 public static int[] softNmsScoreFilter(float[][] anchors, float[] score, int topN, 
+	    		double sigma, float confThresh ) {
+	        int confThreshIndex = 0;
+	        sigma = Math.max(0.001, sigma); // sigma should be >0
+			
+	        while (score[++confThreshIndex] >= confThresh) { }// find last possible index to be output
 
+	        int count = 0;
+	        for(int i=0;i<confThreshIndex;i++){
+	            if(score[i] < confThresh) {
+	                continue;
+	            }
+	            if (++count >= topN) {
+	                break;
+	            }
+	            for(int j=i+1;j<confThreshIndex;j++){
+	                if(score[j]>=confThresh) {
+	                	// only bother softening if we are possibly going to be output (>= confThresh)
+	                    score[j] = score[j] * soften(computeOverlapAreaRate(anchors[i], anchors[j]), sigma);
+	                }
+	            }
+	        }
+	        int outputIndex[] = new int[count];
+	        int j = 0;
+	        for(int i=0; i<confThreshIndex && count>0; i++){
+	            if(score[i]>=confThresh){
+	                outputIndex[j++] = i;
+	                count--;
+	            }
+	        }
+	        return outputIndex;
+	    }
+
+	private static float soften(float overlap, double sigma) {
+		// e^(-1*(x^2)/sigma)
+		return (float) Math.exp(-1. * (overlap*overlap / sigma));
+	}
     public static int[] nmsScoreFilter(float[][] anchors, float[] score, int topN, float thresh){
         int length = anchors.length;
         int count = 0;
@@ -90,7 +126,7 @@ public class NMS {
         }
         return outputIndex;
     }
-
+   
     public static void sortScores(float[][] anchors, float[] scores){
         quickSortScore(anchors, scores, 0, scores.length - 1);
     }
