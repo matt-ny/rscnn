@@ -8,8 +8,9 @@ import java.util.List;
 import java.util.Map;
 
 public abstract class PostProcess {
+
     protected String[] labels = new String[]{
-      "Background","Cookie","Burnt Cookie","Cracked Cookie"
+      "Background","Default1","Default2","Default3"
     };
 
     public abstract List<DetectResult> process(Bitmap image, NetworkParameter param, Map<String, Object> output);

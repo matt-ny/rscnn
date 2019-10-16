@@ -2,6 +2,7 @@ package com.rscnn.algorithm;
 
 import android.renderscript.RenderScript;
 
+
 public class NMS {
     private final static float INVALID_ANCHOR = -10000.0f;
     private RenderScript renderScript;
@@ -62,6 +63,8 @@ public class NMS {
     }
 	 public static int[] softNmsScoreFilter(float[][] anchors, float[] score, int topN, 
 	    		double sigma, float confThresh ) {
+
+//
 	        int confThreshIndex = 0;
 	        sigma = Math.max(0.001, sigma); // sigma should be >0
 			
@@ -124,6 +127,7 @@ public class NMS {
                 count--;
             }
         }
+        //
         return outputIndex;
     }
    

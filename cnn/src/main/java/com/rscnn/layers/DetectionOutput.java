@@ -23,7 +23,7 @@ public class DetectionOutput extends Layer {
     private String codeType = "CORNER";
     private boolean varianceEncodedInTarget = false;
     private int keepTopK = -1;
-    private float confidenceThreshold = 0.3f;
+    private float confidenceThreshold = 0.9f;
     private boolean visualize = false;
     private float visualizeThreshold = 0.2f;
     private String saveFile;
@@ -193,6 +193,8 @@ public class DetectionOutput extends Layer {
 
         List<float[]> boxAndScore = new ArrayList<>();
 
+
+
         Log.d("box[0]: ",Arrays.deepToString(boxes[0]));
 
         for(int i=1;i<numClasses;i++){//skip the background class
@@ -209,13 +211,22 @@ public class DetectionOutput extends Layer {
                 }
             }
 
-            int[] index = NMS.nmsScoreFilter(box1, scores[i], nmsParamTopK, .5f);
+            // confidenceThreshold will default to take from model file
+            float setConf = 0.10f;
+
+            // softNMS
+            //int[] index = NMS.softNmsScoreFilter(box1, scores[i], nmsParamTopK, 10.0f, setConf);
+
+            //hardNMS
+            int[] index = NMS.nmsScoreFilter(box1, scores[i], nmsParamTopK, .33f);
+
+//
             Log.d("survival-index",Arrays.toString(index));
 
             Log.d("NMS Params: ","TopK: "+nmsParamTopK+" Thresh: "+nmsParamNmsThreshold);
             if(index.length>0){
                 for(int id:index){
-                    if(scores[i][id] < 0.17f) {
+                    if(scores[i][id] < setConf) {
                         Log.d("scores","="+" in class: "+i+" the score: "+scores[i][id]+" is less than conf-thresh: "+confidenceThreshold);
                         Log.d("conf-break", "hit!");
                         break;

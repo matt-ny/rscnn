@@ -15,6 +15,7 @@ public class SSDPostProcess extends PostProcess {
     public List<DetectResult> process(Bitmap image, NetworkParameter param, Map<String, Object> output) {
         float[][] box = (float[][]) output.get("detection_out");
         Log.d("detection-out: ",Arrays.deepToString(box));
+        Log.d("labels",Arrays.toString(labels));
         List<DetectResult> result = new ArrayList<>();
         if(box==null || box.length == 0 || box[0][0] < 0){
             return result;

@@ -21,7 +21,6 @@ import com.rscnn.model.ObjectDetector;
 import com.rscnn.model.PvaLite;
 import com.rscnn.network.ConvNet;
 import com.rscnn.network.DetectResult;
-
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
@@ -40,6 +39,7 @@ public class MainActivity extends AppCompatActivity {
         rs = RenderScript.create(this);
         try {
             AssetManager assetManager = getAssets();
+            Log.d("assets",Arrays.toString(assetManager.list(modelPath)));
             String[] fileList = assetManager.list(modelPath);
             if (fileList.length != 0){
                 detector = new MobileNetSSD(rs, assetManager, modelPath);
