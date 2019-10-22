@@ -32,7 +32,7 @@ public class MainActivity extends AppCompatActivity {
 
     private RenderScript rs;
     private ObjectDetector detector = null;
-    private String modelPath = "mobilenet-classifier"; // change to the path where the non-ssd proto is
+    private String modelPath = "cats-classy"; // change to the path where the non-ssd proto is
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
