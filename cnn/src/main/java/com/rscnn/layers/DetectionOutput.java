@@ -23,10 +23,11 @@ public class DetectionOutput extends Layer {
     private String codeType = "CORNER";
     private boolean varianceEncodedInTarget = false;
     private int keepTopK = -1;
-    private float confidenceThreshold = 0.9f;
+    private float confidenceThreshold = 0.5f;
     private boolean visualize = false;
     private float visualizeThreshold = 0.2f;
     private String saveFile;
+    private String nmsType = "hard";
 
     private int num_loc_classes;
     private int num_priors;
@@ -214,11 +215,13 @@ public class DetectionOutput extends Layer {
             // confidenceThreshold will default to take from model file
             float setConf = 0.10f;
 
-            // softNMS
-            //int[] index = NMS.softNmsScoreFilter(box1, scores[i], nmsParamTopK, 10.0f, setConf);
 
-            //hardNMS
-            int[] index = NMS.nmsScoreFilter(box1, scores[i], nmsParamTopK, .33f);
+
+                    //soft NMS
+                    //int[] mIndex = NMS.softNmsScoreFilter(box1, scores[i], nmsParamTopK, 10.0f, setConf);
+
+                    //hard NMS
+                    int[] index = NMS.nmsScoreFilter(box1, scores[i], nmsParamTopK, .33f);
 
 //
             Log.d("survival-index",Arrays.toString(index));
@@ -249,6 +252,7 @@ public class DetectionOutput extends Layer {
         }
         featureMapOutput = out;
     }
+
 
     @Override
     public void computeOutputShape() {

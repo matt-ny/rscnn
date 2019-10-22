@@ -51,6 +51,7 @@ public class MainActivity extends AppCompatActivity {
                 Log.d("detected.hit!","yes");
             }
         } catch (IOException e) {
+            Log.d("onFindModule: ",e.toString());
             e.printStackTrace();
         }
         setContentView(R.layout.activity_main);
@@ -90,7 +91,9 @@ public class MainActivity extends AppCompatActivity {
             ContentResolver resolver = this.getContentResolver();
             Uri uri = data.getData();
             Bitmap bmp = MediaStore.Images.Media.getBitmap(resolver, uri);
+            Log.d("bmp",bmp.toString());
             Bitmap image = cropImage(bmp);
+            Log.d("image",image.toString());
             ImageView img = (ImageView) findViewById(R.id.imageView);
             List<DetectResult> result = detector.detect(image);
             Log.d("detection", result.toString());
