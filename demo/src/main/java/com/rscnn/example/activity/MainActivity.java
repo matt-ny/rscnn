@@ -43,12 +43,12 @@ public class MainActivity extends AppCompatActivity {
             Log.d("assets",Arrays.toString(assetManager.list(modelPath)));
             String[] fileList = assetManager.list(modelPath);
             if (fileList.length != 0){
-                detector = new MobileNet(rs, modelPath);
+                detector = new MobileNet(rs, assetManager, modelPath);
                 Log.d("detected.hit!","no");
             }
             else {
                 String modelDir = Environment.getExternalStorageDirectory().getPath() + "/" + modelPath;
-                detector = new MobileNet(rs, modelDir);
+                detector = new MobileNet(rs, assetManager, modelDir);
                 Log.d("detected.hit!","yes");
             }
         } catch (IOException e) {
