@@ -17,6 +17,7 @@ import android.util.Log;
 
 import com.rscnn.example.R;
 import com.rscnn.model.MobileNetSSD;
+import com.rscnn.model.MobileNet;
 import com.rscnn.model.ObjectDetector;
 import com.rscnn.model.PvaLite;
 import com.rscnn.network.ConvNet;
@@ -31,7 +32,7 @@ public class MainActivity extends AppCompatActivity {
 
     private RenderScript rs;
     private ObjectDetector detector = null;
-    private String modelPath = "mobilenet-ssd";
+    private String modelPath = "mobilenet-classifier"; // change to the path where the non-ssd proto is
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,12 +43,12 @@ public class MainActivity extends AppCompatActivity {
             Log.d("assets",Arrays.toString(assetManager.list(modelPath)));
             String[] fileList = assetManager.list(modelPath);
             if (fileList.length != 0){
-                detector = new MobileNetSSD(rs, assetManager, modelPath);
+                detector = new MobileNet(rs, modelPath);
                 Log.d("detected.hit!","no");
             }
             else {
                 String modelDir = Environment.getExternalStorageDirectory().getPath() + "/" + modelPath;
-                detector = new MobileNetSSD(rs, null, modelDir);
+                detector = new MobileNet(rs, modelDir);
                 Log.d("detected.hit!","yes");
             }
         } catch (IOException e) {

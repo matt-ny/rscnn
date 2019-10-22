@@ -53,6 +53,10 @@ public class PhotoViewHelper {
 
         DecimalFormat decimalFormat=new DecimalFormat("0.0");
         for(DetectResult res:detectResult) {
+        	// For classification, all boxes will have 0,0 0,0 as the coords
+        	// resulting in the text being overwritten... We can view the results in the log.
+        	// A better way to draw would be to subclass the DetectResult type and have
+        	// a virtual method for drawing the results appropriately.
             float[] box = new float[]{res.getX1(),res.getY1(),res.getX2(),res.getY2()};
             int[] rect = zoomRect(box, zoomRatio);
             String prob = decimalFormat.format(res.getProb());
