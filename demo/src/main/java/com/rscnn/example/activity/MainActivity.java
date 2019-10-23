@@ -79,16 +79,16 @@ public class MainActivity extends AppCompatActivity {
             e.printStackTrace();
         }
 
-
+        // apply an array adapter to our spinner, use the spinner to select the desired model to use
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,R.layout.support_simple_spinner_dropdown_item,list);
         spinner.setAdapter(adapter);
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 String selection = parent.getItemAtPosition(position).toString();
-                Log.d("mySelection",selection);
+
+                // set model to selection
                 modelPath = assetMap.get(selection);
-                Log.d("myMod",modelPath);
             }
 
             @Override
@@ -97,6 +97,8 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+
+       // here we detect which type of model we are using from the dlaasD, and instantiate appropriate class
         try {
             AssetManager assetManager = getAssets();
             String[] fileList = assetManager.list(modelPath);
