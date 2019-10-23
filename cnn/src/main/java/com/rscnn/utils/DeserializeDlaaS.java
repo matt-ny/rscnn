@@ -37,7 +37,6 @@ public class DeserializeDlaaS {
 
             //initiate input stream from model path + dlaasName
             InputStream input = assetMan.open(modelPath + "/" + dlaasName);
-            Log.d("dlaasPath", modelPath + dlaasName);
 
             BufferedReader streamReader = new BufferedReader(new InputStreamReader(input, "UTF-8"));
             StringBuilder responseStrBuilder = new StringBuilder();
@@ -54,7 +53,6 @@ public class DeserializeDlaaS {
             }
 
         } catch (IOException e) {
-            Log.d("dlaas-reader-exception!", e.toString());
             e.printStackTrace();
         }
         return dlaasD;
@@ -73,7 +71,6 @@ public class DeserializeDlaaS {
             j.printStackTrace();
         }
 
-        Log.d("worked-if", modelType);
         return modelType;
     }
 
@@ -97,11 +94,6 @@ public class DeserializeDlaaS {
                 dLabels.add(className);
             }
 
-
-            Log.d("dlaas", dlaasD.toString());
-            Log.d("layersarray", layers.toString());
-
-
         } catch (JSONException j) {
             j.printStackTrace();
         }
@@ -109,11 +101,8 @@ public class DeserializeDlaaS {
         // convert the adjustable array list back to fixed size string array
         String[] rLabels = new String[dLabels.size()];
         rLabels = dLabels.toArray(rLabels);
-        Log.d("rLabels", Arrays.toString(rLabels));
-
 
         return rLabels;
-
     }
 }
 
