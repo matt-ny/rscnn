@@ -29,7 +29,7 @@ public class MobileNetSSD extends ObjectDetector {
         DeserializeDlaaS dlaas = new DeserializeDlaaS();
         String[] labelz = dlaas.ReturnLabels(assetManager,modelDir);
         postProcess.setLabels(labelz);
-        
+
         this.convNet = new ConvNet(renderScript, assetManager, modelDir, preProcess, postProcess);
     }
 }

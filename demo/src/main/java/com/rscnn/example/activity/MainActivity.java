@@ -25,6 +25,9 @@ import com.rscnn.network.DetectResult;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
+import java.lang.Object;
+
+import com.rscnn.utils.DeserializeDlaaS;
 import com.rscnn.utils.PhotoViewHelper;
 
 
@@ -40,16 +43,30 @@ public class MainActivity extends AppCompatActivity {
         rs = RenderScript.create(this);
         try {
             AssetManager assetManager = getAssets();
-            Log.d("assets",Arrays.toString(assetManager.list(modelPath)));
             String[] fileList = assetManager.list(modelPath);
+            DeserializeDlaaS dlaasD = new DeserializeDlaaS();
+            String modelType = dlaasD.ReturnModelType(assetManager, modelPath);
+
             if (fileList.length != 0){
-                detector = new MobileNet(rs, assetManager, modelPath);
-                Log.d("detected.hit!","no");
+
+                if (modelType.equals("mobilenet_1")) {
+                    detector = new MobileNet(rs, assetManager, modelPath);
+                }
+                else {
+
+                    detector = new MobileNetSSD(rs,assetManager,modelPath);
+                }
             }
             else {
-                String modelDir = Environment.getExternalStorageDirectory().getPath() + "/" + modelPath;
-                detector = new MobileNet(rs, assetManager, modelDir);
-                Log.d("detected.hit!","yes");
+                if (modelType.equals("mobilenet_1")) {
+                    String modelDir = Environment.getExternalStorageDirectory().getPath() + "/" + modelPath;
+                    detector = new MobileNet(rs, assetManager, modelDir);
+                }
+                else {
+                    String modelDir = Environment.getExternalStorageDirectory().getPath() + "/" + modelPath;
+                    detector = new MobileNetSSD(rs, assetManager, modelDir);
+                }
+
             }
         } catch (IOException e) {
             Log.d("onFindModule: ",e.toString());
@@ -92,12 +109,9 @@ public class MainActivity extends AppCompatActivity {
             ContentResolver resolver = this.getContentResolver();
             Uri uri = data.getData();
             Bitmap bmp = MediaStore.Images.Media.getBitmap(resolver, uri);
-            Log.d("bmp",bmp.toString());
             Bitmap image = cropImage(bmp);
-            Log.d("image",image.toString());
             ImageView img = (ImageView) findViewById(R.id.imageView);
             List<DetectResult> result = detector.detect(image);
-            Log.d("detection", result.toString());
             Bitmap toDraw = PhotoViewHelper.drawTextAndRect(image, result);
             img.setImageBitmap(toDraw);
         } catch (IOException e) {
