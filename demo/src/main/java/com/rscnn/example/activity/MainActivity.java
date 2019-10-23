@@ -11,9 +11,13 @@ import android.renderscript.RenderScript;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 
 import android.util.Log;
+import android.widget.Spinner;
+import android.widget.TextView;
 
 import com.rscnn.example.R;
 import com.rscnn.model.MobileNetSSD;
@@ -24,27 +28,79 @@ import com.rscnn.network.ConvNet;
 import com.rscnn.network.DetectResult;
 import java.io.IOException;
 import java.util.Arrays;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.lang.Object;
+import java.util.Map;
 
 import com.rscnn.utils.DeserializeDlaaS;
 import com.rscnn.utils.PhotoViewHelper;
-
 
 public class MainActivity extends AppCompatActivity {
 
     private RenderScript rs;
     private ObjectDetector detector = null;
     private String modelPath = "cats-classy"; // change to the path where the non-ssd proto is
+    private Spinner spinner;
+    private TextView textView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         rs = RenderScript.create(this);
+        setContentView(R.layout.activity_main);
+
+        spinner = (Spinner) this.findViewById(R.id.spinner);
+
+        List<String> list = new ArrayList<>();
+        DeserializeDlaaS dlaasD = new DeserializeDlaaS();
+
+        final Map<String,String> assetMap = new HashMap<String, String>();
+
+        try {
+            //get all folders in our assets dir
+            AssetManager myAss = getAssets();
+            String[] choices = myAss.list("");
+
+            //find which of these contain dlaas jsons
+            for (String folder : choices) {
+                String[] fileList = getAssets().list(folder);
+                for (String file : fileList){
+                    file = file.toLowerCase();
+                    if (file.endsWith(".json") && file.contains("dlaas")) {
+                        String modelName = dlaasD.ReturnModelName(myAss, folder);
+                        list.add(modelName);
+                        assetMap.put(modelName,folder);
+                    }
+                }
+            }
+        }
+        catch (IOException e){
+            e.printStackTrace();
+        }
+
+
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,R.layout.support_simple_spinner_dropdown_item,list);
+        spinner.setAdapter(adapter);
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                String selection = parent.getItemAtPosition(position).toString();
+                Log.d("mySelection",selection);
+                modelPath = assetMap.get(selection);
+                Log.d("myMod",modelPath);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
         try {
             AssetManager assetManager = getAssets();
             String[] fileList = assetManager.list(modelPath);
-            DeserializeDlaaS dlaasD = new DeserializeDlaaS();
             String modelType = dlaasD.ReturnModelType(assetManager, modelPath);
 
             if (fileList.length != 0){
@@ -72,7 +128,7 @@ public class MainActivity extends AppCompatActivity {
             Log.d("onFindModule: ",e.toString());
             e.printStackTrace();
         }
-        setContentView(R.layout.activity_main);
+
     }
 
     public void btnClicked(View view) {

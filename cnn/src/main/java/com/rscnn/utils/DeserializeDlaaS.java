@@ -5,19 +5,16 @@ import org.json.*;
 import android.content.res.AssetManager;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import android.util.Log;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 
+import android.util.Log;
+
 
 public class DeserializeDlaaS {
-
-
-
 
     public JSONObject ReadDlaaS(AssetManager assetMan, String modelPath) {
 
@@ -74,6 +71,29 @@ public class DeserializeDlaaS {
         return modelType;
     }
 
+    public String ReturnModelName(AssetManager assetMan, String modelPath) {
+
+        // fetch dlaas descriptor
+        JSONObject dlaasD = ReadDlaaS(assetMan, modelPath);
+        String modelName = null;
+
+        // first check if classifier id is set (default)
+        try {
+            modelName = dlaasD.getString("classifier_id");
+        } catch (JSONException j) {
+            j.printStackTrace();
+        }
+
+        // check for name if classifier_id was null
+        if (modelName == null) {
+            try {
+                modelName = dlaasD.getString("name");
+            } catch (JSONException j) {
+                j.printStackTrace();
+            }
+        }
+        return modelName;
+    }
 
     public String[] ReturnLabels(AssetManager assetMan, String modelPath) {
 
