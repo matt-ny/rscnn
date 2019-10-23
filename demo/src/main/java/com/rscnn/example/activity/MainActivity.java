@@ -25,6 +25,9 @@ import com.rscnn.network.DetectResult;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
+import java.lang.Object;
+
+import com.rscnn.utils.DeserializeDlaaS;
 import com.rscnn.utils.PhotoViewHelper;
 
 
@@ -32,7 +35,7 @@ public class MainActivity extends AppCompatActivity {
 
     private RenderScript rs;
     private ObjectDetector detector = null;
-    private String modelPath = "mobilenet-classifier"; // change to the path where the non-ssd proto is
+    private String modelPath = "cats-classy"; // change to the path where the non-ssd proto is
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,18 +43,33 @@ public class MainActivity extends AppCompatActivity {
         rs = RenderScript.create(this);
         try {
             AssetManager assetManager = getAssets();
-            Log.d("assets",Arrays.toString(assetManager.list(modelPath)));
             String[] fileList = assetManager.list(modelPath);
+            DeserializeDlaaS dlaasD = new DeserializeDlaaS();
+            String modelType = dlaasD.ReturnModelType(assetManager, modelPath);
+
             if (fileList.length != 0){
-                detector = new MobileNet(rs, modelPath);
-                Log.d("detected.hit!","no");
+
+                if (modelType.equals("mobilenet_1")) {
+                    detector = new MobileNet(rs, assetManager, modelPath);
+                }
+                else {
+
+                    detector = new MobileNetSSD(rs,assetManager,modelPath);
+                }
             }
             else {
-                String modelDir = Environment.getExternalStorageDirectory().getPath() + "/" + modelPath;
-                detector = new MobileNet(rs, modelDir);
-                Log.d("detected.hit!","yes");
+                if (modelType.equals("mobilenet_1")) {
+                    String modelDir = Environment.getExternalStorageDirectory().getPath() + "/" + modelPath;
+                    detector = new MobileNet(rs, assetManager, modelDir);
+                }
+                else {
+                    String modelDir = Environment.getExternalStorageDirectory().getPath() + "/" + modelPath;
+                    detector = new MobileNetSSD(rs, assetManager, modelDir);
+                }
+
             }
         } catch (IOException e) {
+            Log.d("onFindModule: ",e.toString());
             e.printStackTrace();
         }
         setContentView(R.layout.activity_main);
@@ -94,7 +112,6 @@ public class MainActivity extends AppCompatActivity {
             Bitmap image = cropImage(bmp);
             ImageView img = (ImageView) findViewById(R.id.imageView);
             List<DetectResult> result = detector.detect(image);
-            Log.d("detection", result.toString());
             Bitmap toDraw = PhotoViewHelper.drawTextAndRect(image, result);
             img.setImageBitmap(toDraw);
         } catch (IOException e) {

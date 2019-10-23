@@ -25,11 +25,11 @@ public class MobileNetSSD extends ObjectDetector {
         PreProcess preProcess = new PreProcess(meanValue, 0.007843f);
         PostProcess postProcess = new SSDPostProcess();
 
+        // dynamically load the classes from Dlaas file
         DeserializeDlaaS dlaas = new DeserializeDlaaS();
         String[] labelz = dlaas.ReturnLabels(assetManager,modelDir);
         postProcess.setLabels(labelz);
 
-        //postProcess.setLabels(bullshit);
         this.convNet = new ConvNet(renderScript, assetManager, modelDir, preProcess, postProcess);
     }
 }

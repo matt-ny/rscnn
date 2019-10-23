@@ -52,6 +52,7 @@ public class ConvNet {
         else{
             try {
                 fileList = assetManager.list(modelDir);
+                Log.d("convnet-files:",fileList.toString());
             } catch (IOException e) {
                 String errorMsg = "model dir assets://" + modelDir + " read error:" + e.getMessage();
                 LogUtil.e(TAG, errorMsg);

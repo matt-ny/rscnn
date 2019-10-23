@@ -16,12 +16,13 @@ import java.io.InputStreamReader;
 
 public class DeserializeDlaaS {
 
-    ArrayList<String> dLabels = new ArrayList<String>();
 
-    public String[] ReturnLabels (AssetManager assetMan, String modelPath) {
+
+
+    public JSONObject ReadDlaaS(AssetManager assetMan, String modelPath) {
 
         String dlaasName = null;
-        String[] labelsList = new String[]{};
+        JSONObject dlaasD = null;
 
         try {
             // read asset manager for file list
@@ -36,7 +37,6 @@ public class DeserializeDlaaS {
 
             //initiate input stream from model path + dlaasName
             InputStream input = assetMan.open(modelPath + "/" + dlaasName);
-            Log.d("dlaasPath", modelPath + dlaasName);
 
             BufferedReader streamReader = new BufferedReader(new InputStreamReader(input, "UTF-8"));
             StringBuilder responseStrBuilder = new StringBuilder();
@@ -46,45 +46,66 @@ public class DeserializeDlaaS {
                 responseStrBuilder.append(inputStr);
             }
 
-                try {
-                JSONObject dlaas = new JSONObject(responseStrBuilder.toString());
-                JSONArray layers = dlaas.getJSONArray("class_to_vector");
-
-
-                // iteratively append class labels to labelList
-                for (int i=0; i < layers.length(); i++ ) {
-                    JSONObject layer = layers.getJSONObject(i);
-                    String className = layer.getString("class");
-                    dLabels.add(className);
-                }
-
-
-                Log.d("dlaas", dlaas.toString());
-                Log.d("layersarray",layers.toString());
-
-
-
-
-                }
-                catch(JSONException j){
-                    j.printStackTrace();
-                }
-
+            try {
+                dlaasD = new JSONObject(responseStrBuilder.toString());
+            } catch (JSONException j) {
+                j.printStackTrace();
             }
 
-            catch (IOException e) {
-            Log.d("dlaas-reader-exception!", e.toString());
+        } catch (IOException e) {
             e.printStackTrace();
+        }
+        return dlaasD;
+    }
 
+
+    public String ReturnModelType(AssetManager assetMan, String modelPath) {
+
+        // fetch the descriptor
+        JSONObject dlaasD = ReadDlaaS(assetMan, modelPath);
+        String modelType = null;
+
+        try {
+            modelType = dlaasD.getString("model_type");
+        } catch (JSONException j) {
+            j.printStackTrace();
+        }
+
+        return modelType;
+    }
+
+
+    public String[] ReturnLabels(AssetManager assetMan, String modelPath) {
+
+        ArrayList<String> dLabels = new ArrayList<String>();
+        String dlaasName = null;
+        String[] labelsList = new String[]{};
+
+        JSONObject dlaasD = ReadDlaaS(assetMan, modelPath);
+
+        try {
+            JSONArray layers = dlaasD.getJSONArray("class_to_vector");
+
+
+            // iteratively append class labels to labelList
+            for (int i = 0; i < layers.length(); i++) {
+                JSONObject layer = layers.getJSONObject(i);
+                String className = layer.getString("class");
+                dLabels.add(className);
+            }
+
+        } catch (JSONException j) {
+            j.printStackTrace();
         }
 
         // convert the adjustable array list back to fixed size string array
         String[] rLabels = new String[dLabels.size()];
         rLabels = dLabels.toArray(rLabels);
-        Log.d("rLabels",Arrays.toString(rLabels));
-
 
         return rLabels;
     }
 }
+
+
+
 
