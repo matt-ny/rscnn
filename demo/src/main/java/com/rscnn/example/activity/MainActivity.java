@@ -41,9 +41,8 @@ public class MainActivity extends AppCompatActivity {
 
     private RenderScript rs;
     private ObjectDetector detector = null;
-    private String modelPath = "cats-classy"; // change to the path where the non-ssd proto is
+    private String modelPath = null;
     private Spinner spinner;
-    private TextView textView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
