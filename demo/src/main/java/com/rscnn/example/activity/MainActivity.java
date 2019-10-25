@@ -43,6 +43,7 @@ public class MainActivity extends AppCompatActivity {
     private ObjectDetector detector = null;
     private String modelPath = null;
     private Spinner spinner;
+    DeserializeDlaaS dlaasD = new DeserializeDlaaS();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,9 +54,8 @@ public class MainActivity extends AppCompatActivity {
         spinner = (Spinner) this.findViewById(R.id.spinner);
 
         List<String> list = new ArrayList<>();
-        DeserializeDlaaS dlaasD = new DeserializeDlaaS();
 
-        final Map<String,String> assetMap = new HashMap<String, String>();
+        final Map<String, String> assetMap = new HashMap<String, String>();
 
         try {
             //get all folders in our assets dir
@@ -65,22 +65,22 @@ public class MainActivity extends AppCompatActivity {
             //find which of these contain dlaas jsons
             for (String folder : choices) {
                 String[] fileList = getAssets().list(folder);
-                for (String file : fileList){
+                for (String file : fileList) {
                     file = file.toLowerCase();
                     if (file.endsWith(".json") && file.contains("dlaas")) {
                         String modelName = dlaasD.ReturnModelName(myAss, folder);
                         list.add(modelName);
-                        assetMap.put(modelName,folder);
+                        modelPath = folder;
+                        assetMap.put(modelName, folder);
                     }
                 }
             }
-        }
-        catch (IOException e){
+        } catch (IOException e) {
             e.printStackTrace();
         }
 
         // apply an array adapter to our spinner, use the spinner to select the desired model to use
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,R.layout.support_simple_spinner_dropdown_item,list);
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, R.layout.support_simple_spinner_dropdown_item, list);
         spinner.setAdapter(adapter);
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -97,40 +97,43 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+    }
 
        // here we detect which type of model we are using from the dlaasD, and instantiate appropriate class
+       private void setDetector() {
+
         try {
             AssetManager assetManager = getAssets();
             String[] fileList = assetManager.list(modelPath);
             String modelType = dlaasD.ReturnModelType(assetManager, modelPath);
 
-            if (fileList.length != 0){
+            if (fileList.length != 0) {
 
                 if (modelType.equals("mobilenet_1")) {
                     detector = new MobileNet(rs, assetManager, modelPath);
-                }
-                else {
+                } else {
 
-                    detector = new MobileNetSSD(rs,assetManager,modelPath);
+                    detector = new MobileNetSSD(rs, assetManager, modelPath);
                 }
-            }
-            else {
+            } else {
                 if (modelType.equals("mobilenet_1")) {
                     String modelDir = Environment.getExternalStorageDirectory().getPath() + "/" + modelPath;
                     detector = new MobileNet(rs, assetManager, modelDir);
-                }
-                else {
+                } else {
                     String modelDir = Environment.getExternalStorageDirectory().getPath() + "/" + modelPath;
                     detector = new MobileNetSSD(rs, assetManager, modelDir);
                 }
 
             }
         } catch (IOException e) {
-            Log.d("onFindModule: ",e.toString());
+            Log.d("onFindModule: ", e.toString());
             e.printStackTrace();
         }
+      }
 
-    }
+
+
+
 
     public void btnClicked(View view) {
         Intent intent;
@@ -168,6 +171,7 @@ public class MainActivity extends AppCompatActivity {
             Bitmap bmp = MediaStore.Images.Media.getBitmap(resolver, uri);
             Bitmap image = cropImage(bmp);
             ImageView img = (ImageView) findViewById(R.id.imageView);
+            setDetector();
             List<DetectResult> result = detector.detect(image);
             Bitmap toDraw = PhotoViewHelper.drawTextAndRect(image, result);
             img.setImageBitmap(toDraw);
