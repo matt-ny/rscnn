@@ -27,7 +27,8 @@ public class DeserializeDlaaS {
 
             // if file ends with '.json' ASSUME DlaaS...
             for (String f : fileList) {
-                if (f.endsWith(".json")) {
+                String lf = f.toLowerCase();
+                if (lf.endsWith(".json") && lf.contains("dlaas")) {
                     dlaasName = f;
                 }
             }
