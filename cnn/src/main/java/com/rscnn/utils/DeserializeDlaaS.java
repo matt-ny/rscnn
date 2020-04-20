@@ -25,11 +25,11 @@ public class DeserializeDlaaS {
             // read asset manager for file list
             String[] fileList = assetMan.list(modelPath);
 
-            // if file ends with '.json' ASSUME DlaaS...
+            // read the first DLaaS descriptor json file found in this path
             for (String f : fileList) {
-                String lf = f.toLowerCase();
-                if (lf.endsWith(".json") && lf.contains("dlaas")) {
+                if (isDescriptorFile(f)) {
                     dlaasName = f;
+                    break;
                 }
             }
 
@@ -124,6 +124,11 @@ public class DeserializeDlaaS {
         rLabels = dLabels.toArray(rLabels);
 
         return rLabels;
+    }
+
+    public boolean isDescriptorFile(String file) {
+        String lf = file.toLowerCase();
+        return (lf.endsWith(".json") && lf.startsWith("dlaasdescriptor-"));
     }
 }
 

@@ -2,6 +2,8 @@ package com.rscnn.algorithm;
 
 import android.renderscript.RenderScript;
 
+import com.rscnn.utils.LogUtil;
+
 
 public class NMS {
     private final static float INVALID_ANCHOR = -10000.0f;
@@ -64,7 +66,6 @@ public class NMS {
 	 public static int[] softNmsScoreFilter(float[][] anchors, float[] score, int topN, 
 	    		double sigma, float confThresh ) {
 
-//
 	        int confThreshIndex = 0;
 	        sigma = Math.max(0.001, sigma); // sigma should be >0
 			
@@ -75,9 +76,7 @@ public class NMS {
 	            if(score[i] < confThresh) {
 	                continue;
 	            }
-	            if (++count >= topN) {
-	                break;
-	            }
+	            ++count;
 	            for(int j=i+1;j<confThreshIndex;j++){
 	                if(score[j]>=confThresh) {
 	                	// only bother softening if we are possibly going to be output (>= confThresh)
@@ -85,12 +84,18 @@ public class NMS {
 	                }
 	            }
 	        }
-	        int outputIndex[] = new int[count];
+	        // now the scores may be out of order due to softening from overlapped boxes
+            long temp = System.currentTimeMillis();
+            quickSortScore(anchors, score, 0, confThreshIndex);
+            temp = System.currentTimeMillis() - temp;
+            //LogUtil.i("NMS post-sort","sort compute time:  " + temp + " ms.");
+
+         int allocSize = Math.min(count, topN);
+	        int outputIndex[] = new int[allocSize];
 	        int j = 0;
-	        for(int i=0; i<confThreshIndex && count>0; i++){
+	        for(int i=0; i<confThreshIndex && j<allocSize; i++){
 	            if(score[i]>=confThresh){
 	                outputIndex[j++] = i;
-	                count--;
 	            }
 	        }
 	        return outputIndex;
@@ -100,7 +105,7 @@ public class NMS {
 		// e^(-1*(x^2)/sigma)
 		return (float) Math.exp(-1. * (overlap*overlap / sigma));
 	}
-    public static int[] nmsScoreFilter(float[][] anchors, float[] score, int topN, float thresh){
+    public static int[] nmsScoreFilter(float[][] anchors, float[] score, int topN, float overlapThresh){
         int length = anchors.length;
         int count = 0;
 
@@ -113,7 +118,7 @@ public class NMS {
             }
             for(int j=i+1;j<length;j++){
                 if(score[j]!=INVALID_ANCHOR) {
-                    if (computeOverlapAreaRate(anchors[i], anchors[j]) > thresh) {
+                    if (computeOverlapAreaRate(anchors[i], anchors[j]) > overlapThresh) {
                         score[j] = INVALID_ANCHOR;
                     }
                 }

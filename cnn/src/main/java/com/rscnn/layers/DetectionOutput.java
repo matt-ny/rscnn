@@ -18,6 +18,7 @@ public class DetectionOutput extends Layer {
     private boolean shareLocation = true;
     private int backgroundLabelId = 0;
     private float nmsParamNmsThreshold = 0.2f;
+    private float softNMSSigma = 0.5f;
     private int nmsParamTopK = 2;
     private float nmsParamEta = 1.0f;
     private String codeType = "CORNER";
@@ -27,7 +28,6 @@ public class DetectionOutput extends Layer {
     private boolean visualize = false;
     private float visualizeThreshold = 0.2f;
     private String saveFile;
-    private String nmsType = "hard";
 
     private int num_loc_classes;
     private int num_priors;
@@ -52,6 +52,9 @@ public class DetectionOutput extends Layer {
         this.nmsParamTopK = nmsParamTopK;
     }
 
+    public void setNmsParamSigma(float s) {
+        this.softNMSSigma = s;
+    }
     public void setNmsParamEta(float nmsParamEta) {
         this.nmsParamEta = nmsParamEta;
     }
@@ -194,15 +197,15 @@ public class DetectionOutput extends Layer {
 
         List<float[]> boxAndScore = new ArrayList<>();
 
-
-
         Log.d("box[0]: ",Arrays.deepToString(boxes[0]));
 
         for(int i=1;i<numClasses;i++){//skip the background class
             float[][] box1 = boxes[0].clone();
 
-
+            long temp = System.currentTimeMillis();
             NMS.sortScores(box1,scores[i]);
+            temp = System.currentTimeMillis() - temp;
+            //LogUtil.i("NMS prep","sort compute time: "+name+"  " + temp + " ms.");
 
             Log.d("box1: ",Arrays.deepToString(box1));
             Log.d("all-scores-return", Arrays.toString(scores[i]));
@@ -212,25 +215,25 @@ public class DetectionOutput extends Layer {
                 }
             }
 
-            // confidenceThreshold will default to take from model file
-            float setConf = 0.10f;
+            // sigma, nmsParamTopK & confidenceThreshold
+            // can or are initially set from model proto file
 
+            //soft NMS
+            int[] index = NMS.softNmsScoreFilter(box1, scores[i], nmsParamTopK, softNMSSigma,
+                    confidenceThreshold);
 
+            //hard NMS
+            //int[] index = NMS.nmsScoreFilter(box1, scores[i], nmsParamTopK, .33f);
 
-                    //soft NMS
-                    //int[] mIndex = NMS.softNmsScoreFilter(box1, scores[i], nmsParamTopK, 10.0f, setConf);
-
-                    //hard NMS
-                    int[] index = NMS.nmsScoreFilter(box1, scores[i], nmsParamTopK, .33f);
-
-//
             Log.d("survival-index",Arrays.toString(index));
 
             Log.d("NMS Params: ","TopK: "+nmsParamTopK+" Thresh: "+nmsParamNmsThreshold);
             if(index.length>0){
                 for(int id:index){
-                    if(scores[i][id] < setConf) {
-                        Log.d("scores","="+" in class: "+i+" the score: "+scores[i][id]+" is less than conf-thresh: "+confidenceThreshold);
+                    if(scores[i][id] < confidenceThreshold) {
+                        // This will not happen when softNmsScoreFilter() is used since it pre-filters
+                        Log.d("scores","="+" in class: "+i+" the score: "+scores[i][id]
+                                +" is less than conf-thresh: "+confidenceThreshold);
                         Log.d("conf-break", "hit!");
                         break;
                     }
