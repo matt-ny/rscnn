@@ -61,6 +61,7 @@ public class PreProcess {
             subImage.getPixels(pixels, 0, width, 0, 0, width, height);
         }
 
+        Log.d("scale = ",String.valueOf(scale));
         int count = 0;
         int dataCount = 0;
         for (int i = 0; i < height; i++) {
@@ -70,7 +71,6 @@ public class PreProcess {
                 data[dataCount++] = (((k >> 8) & 0xFF) - pixelMeanGreen) * scale;
                 data[dataCount++] = (((k >> 16) & 0xFF) - pixelMeanRed) * scale;
                 data[dataCount++] = 0;
-                Log.d("scale = ",String.valueOf(scale));
             }
         }
 
@@ -78,7 +78,7 @@ public class PreProcess {
             subImage.recycle();
         }
 
-        Log.d("return preprocess",Arrays.toString(data));
+        //Log.d("return preprocess",Arrays.toString(data));
         return new Object[]{data};
     }
 }
