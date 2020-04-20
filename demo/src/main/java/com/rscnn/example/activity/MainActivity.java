@@ -59,19 +59,19 @@ public class MainActivity extends AppCompatActivity {
 
         try {
             //get all folders in our assets dir
-            AssetManager myAss = getAssets();
-            String[] choices = myAss.list("");
+            AssetManager myAssets = getAssets();
+            String[] choices = myAssets.list("");
 
             //find which of these contain dlaas jsons
             for (String folder : choices) {
                 String[] fileList = getAssets().list(folder);
                 for (String file : fileList) {
-                    file = file.toLowerCase();
-                    if (file.endsWith(".json") && file.contains("dlaas")) {
-                        String modelName = dlaasD.ReturnModelName(myAss, folder);
+                    if (dlaasD.isDescriptorFile(file)) {
+                        String modelName = folder + ": " + dlaasD.ReturnModelName(myAssets, folder);
                         list.add(modelName);
                         modelPath = folder;
                         assetMap.put(modelName, folder);
+                        break;  // exit after first descriptor in folder is found
                     }
                 }
             }
