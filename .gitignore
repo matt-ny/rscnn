@@ -81,8 +81,6 @@ projectFilesBackup
 # model file
 *.zip
 
-# assets
-demo/src/main/assets/*
-demo/src/main/assets/*/*
+
 # swp crap
 *.swp
