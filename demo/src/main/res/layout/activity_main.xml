@@ -7,10 +7,11 @@
     android:gravity="center_vertical"
     android:orientation="vertical"
     tools:context="com.rscnn.example.activity.MainActivity">
+
     <ImageView
         android:id="@+id/imageView"
         android:layout_width="match_parent"
-        android:layout_height="460dp" />
+        android:layout_height="418dp" />
 
     <Button
         android:id="@+id/button"
@@ -27,6 +28,33 @@
         android:layout_alignParentTop="true"
         android:layout_gravity="center_horizontal"
         android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text=" Confidence Threshold" />
+
+    <SeekBar
+        android:id="@+id/seekBarThresh"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:contentDescription="threshold"
+        android:max="100"
+        android:progress="50" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text=" Soft NMS Sigma" />
+
+    <SeekBar
+        android:id="@+id/seekBarSigma"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:max="100"
+        android:progress="50" />
 
 
 </LinearLayout>

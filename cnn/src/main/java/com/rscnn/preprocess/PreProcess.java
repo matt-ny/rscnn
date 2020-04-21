@@ -10,7 +10,6 @@ import com.rscnn.postprocess.NetworkParameter;
 public class PreProcess {
     protected ROI roi = null;
     protected float[] meanValueBGR = new float[]{127.5f, 127.5f, 127.5f};
-    protected float scale1 = 0.007843f;
     protected float scale = 0.007843f;
 
     public PreProcess() {

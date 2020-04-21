@@ -120,7 +120,6 @@ public class ConvNet {
 
     public List<DetectResult> detect(Bitmap bmp){
 
-        Log.d("detect!: ","HIT!");
         NetworkParameter param = new NetworkParameter();
         param.setNetworkInputHeight(networkInputHeight);
         param.setNetworkInputWidth(networkInputWidth);

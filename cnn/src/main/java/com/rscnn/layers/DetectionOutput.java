@@ -217,7 +217,15 @@ public class DetectionOutput extends Layer {
 
             // sigma, nmsParamTopK & confidenceThreshold
             // can or are initially set from model proto file
-
+            // but can be overridden with env vars
+            String strSigmaUI = System.getProperty("SIGMA_ENV");
+            if (null != strSigmaUI) {
+                setNmsParamSigma(Float.parseFloat(strSigmaUI));
+            }
+            String strConfUI = System.getProperty("CTHRESH_ENV");
+            if (null != strConfUI) {
+                setConfidenceThreshold(Float.parseFloat(strConfUI));
+            }
             //soft NMS
             int[] index = NMS.softNmsScoreFilter(box1, scores[i], nmsParamTopK, softNMSSigma,
                     confidenceThreshold);
@@ -227,14 +235,14 @@ public class DetectionOutput extends Layer {
 
             Log.d("survival-index",Arrays.toString(index));
 
-            Log.d("NMS Params: ","TopK: "+nmsParamTopK+" Thresh: "+nmsParamNmsThreshold);
+            Log.d("NMS Params: ","TopK: "+nmsParamTopK+" Thresh: "+nmsParamNmsThreshold
+                        + "Sigma: "+softNMSSigma);
             if(index.length>0){
                 for(int id:index){
                     if(scores[i][id] < confidenceThreshold) {
                         // This will not happen when softNmsScoreFilter() is used since it pre-filters
                         Log.d("scores","="+" in class: "+i+" the score: "+scores[i][id]
                                 +" is less than conf-thresh: "+confidenceThreshold);
-                        Log.d("conf-break", "hit!");
                         break;
                     }
                     if(Float.isNaN(scores[i][id])){//skip the NaN score, maybe not correct

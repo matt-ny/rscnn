@@ -16,6 +16,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 
 import android.util.Log;
+import android.widget.SeekBar;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -36,6 +37,8 @@ import java.util.Map;
 
 import com.rscnn.utils.DeserializeDlaaS;
 import com.rscnn.utils.PhotoViewHelper;
+
+import org.w3c.dom.Text;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -96,6 +99,56 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
+
+        SeekBar sigmaSeekBar = (SeekBar) findViewById(R.id.seekBarSigma); // initiate the Seek bar
+        final float maxValueSigma = (float)sigmaSeekBar.getMax();
+        final TextView sigView = (TextView) findViewById(R.id.textView2);
+
+        sigmaSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            int progressChangedValue = 0;
+
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                 progressChangedValue = progress;
+                 float floatVal = (float)progress / maxValueSigma;
+                 System.setProperty("SIGMA_ENV", String.valueOf(floatVal));
+                 sigView.setText(" Soft NMS Sigma: "+floatVal);
+            }
+
+            public void onStartTrackingTouch(SeekBar seekBar) {
+            }
+
+            public void onStopTrackingTouch(SeekBar seekBar) {
+                float floatVal = (float)progressChangedValue / maxValueSigma;
+                System.setProperty("SIGMA_ENV", String.valueOf(floatVal));
+            }
+        });
+        // 2 values to trigger a change
+        sigmaSeekBar.setProgress(40);
+        sigmaSeekBar.setProgress(50);
+
+        SeekBar confSeekBar = (SeekBar) findViewById(R.id.seekBarThresh);
+        final float maxValueConf = (float)confSeekBar.getMax();
+        final TextView threshView = (TextView) findViewById(R.id.textView);
+        confSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            int progressChangedValue = 0;
+
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                progressChangedValue = progress;
+                float floatVal = (float)progress / maxValueConf;
+                System.setProperty("CTHRESH_ENV", String.valueOf(floatVal));
+                threshView.setText(" Confidence Threshold: "+floatVal);
+            }
+
+            public void onStartTrackingTouch(SeekBar seekBar) {
+            }
+
+            public void onStopTrackingTouch(SeekBar seekBar) {
+                float floatVal = (float)progressChangedValue / maxValueConf;
+                System.setProperty("CTHRESH_ENV", String.valueOf(floatVal));
+            }
+        });
+        confSeekBar.setProgress(49);
+        confSeekBar.setProgress(50);
 
     }
 
