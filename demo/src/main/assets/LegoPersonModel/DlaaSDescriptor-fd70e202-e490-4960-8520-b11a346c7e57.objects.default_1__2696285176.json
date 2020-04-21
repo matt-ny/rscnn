@@ -1,0 +1,14 @@
+{
+  "classifier_id": "fd70e202-e490-4960-8520-b11a346c7e57.objects.default_1",
+  "dlaas_training_id": "training-QAefV69Wg",
+  "model_type": "ssd_mobilenet_1",
+  "class_to_vector": [
+    {
+      "class": "background"
+    },
+    {
+      "class": "Lego"
+    }
+  ],
+  "training_status": "ready"
+}

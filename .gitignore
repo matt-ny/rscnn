@@ -72,9 +72,6 @@ projectFilesBackup
 
 #tensorflow model
 *.pb
-#caffe model
-*.dat
-
 
 # iml file
 *.iml
