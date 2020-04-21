@@ -4,13 +4,18 @@ import android.graphics.Bitmap;
 import com.rscnn.network.DetectResult;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
+
+import android.util.Log;
 
 public class SSDPostProcess extends PostProcess {
     @Override
     public List<DetectResult> process(Bitmap image, NetworkParameter param, Map<String, Object> output) {
         float[][] box = (float[][]) output.get("detection_out");
+        Log.d("detection-out: ",Arrays.deepToString(box));
+        Log.d("labels",Arrays.toString(labels));
         List<DetectResult> result = new ArrayList<>();
         if(box==null || box.length == 0 || box[0][0] < 0){
             return result;

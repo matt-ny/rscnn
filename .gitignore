@@ -65,6 +65,7 @@ captures/
 
 # Mac
 .DS_Store/
+*.DS_Store
 
 #projectFilesBackup
 projectFilesBackup
@@ -73,7 +74,12 @@ projectFilesBackup
 *.pb
 #caffe model
 *.dat
+
+
 # iml file
 *.iml
 # model file
 *.zip
+
+
+*.swp

@@ -2,6 +2,9 @@ package com.rscnn.algorithm;
 
 import android.renderscript.RenderScript;
 
+import com.rscnn.utils.LogUtil;
+
+
 public class NMS {
     private final static float INVALID_ANCHOR = -10000.0f;
     private RenderScript renderScript;
@@ -47,21 +50,64 @@ public class NMS {
         float xx2 = anchor1[2]<anchor2[2]?anchor1[2]:anchor2[2];
         float yy2 = anchor1[3]<anchor2[3]?anchor1[3]:anchor2[3];
 
-        float w = xx2 - xx1 + 1;
-        float h = yy2 - yy1 + 1;
+        float w = xx2 - xx1;
+        float h = yy2 - yy1;
         if(w<0||h<0){
             return 0;
         }
 
         float inter = w * h;
 
-        float anchor1_area1 = (anchor1[2] - anchor1[0] + 1)*(anchor1[3] - anchor1[1] + 1);
-        float anchor2_area1 = (anchor2[2] - anchor2[0] + 1)*(anchor2[3] - anchor2[1] + 1);
+        float anchor1_area1 = (anchor1[2] - anchor1[0])*(anchor1[3] - anchor1[1]);
+        float anchor2_area1 = (anchor2[2] - anchor2[0])*(anchor2[3] - anchor2[1]);
 
         return inter / (anchor1_area1 + anchor2_area1 - inter);
     }
+	 public static int[] softNmsScoreFilter(float[][] anchors, float[] score, int topN, 
+	    		double sigma, float confThresh ) {
 
-    public static int[] nmsScoreFilter(float[][] anchors, float[] score, int topN, float thresh){
+	        int confThreshIndex = 0;
+	        sigma = Math.max(0.001, sigma); // sigma should be >0
+
+	        while (confThreshIndex<score.length && (score[confThreshIndex] >= confThresh)) {
+	                confThreshIndex++;
+	            }  // find last possible index to be output
+
+	        int count = 0;
+	        for(int i=0;i<confThreshIndex;i++){
+	            if(score[i] < confThresh) {
+	                continue;
+	            }
+	            ++count;
+	            for(int j=i+1;j<confThreshIndex;j++){
+	                if(score[j]>=confThresh) {
+	                	// only bother softening if we are possibly going to be output (>= confThresh)
+	                    score[j] = score[j] * soften(computeOverlapAreaRate(anchors[i], anchors[j]), sigma);
+	                }
+	            }
+	        }
+	        // now the scores may be out of order due to softening from overlapped boxes
+            long temp = System.currentTimeMillis();
+            quickSortScore(anchors, score, 0, confThreshIndex-1);
+            temp = System.currentTimeMillis() - temp;
+            //LogUtil.i("NMS post-sort","sort compute time:  " + temp + " ms.");
+
+         int allocSize = Math.min(count, topN);
+	        int outputIndex[] = new int[allocSize];
+	        int j = 0;
+	        for(int i=0; i<confThreshIndex && j<allocSize; i++){
+	            if(score[i]>=confThresh){
+	                outputIndex[j++] = i;
+	            }
+	        }
+	        return outputIndex;
+	    }
+
+	private static float soften(float overlap, double sigma) {
+		// e^(-1*(x^2)/sigma)
+		return (float) Math.exp(-1. * (overlap*overlap / sigma));
+	}
+    public static int[] nmsScoreFilter(float[][] anchors, float[] score, int topN, float overlapThresh){
         int length = anchors.length;
         int count = 0;
 
@@ -74,7 +120,7 @@ public class NMS {
             }
             for(int j=i+1;j<length;j++){
                 if(score[j]!=INVALID_ANCHOR) {
-                    if (computeOverlapAreaRate(anchors[i], anchors[j]) > thresh) {
+                    if (computeOverlapAreaRate(anchors[i], anchors[j]) > overlapThresh) {
                         score[j] = INVALID_ANCHOR;
                     }
                 }
@@ -88,9 +134,10 @@ public class NMS {
                 count--;
             }
         }
+        //
         return outputIndex;
     }
-
+   
     public static void sortScores(float[][] anchors, float[] scores){
         quickSortScore(anchors, scores, 0, scores.length - 1);
     }

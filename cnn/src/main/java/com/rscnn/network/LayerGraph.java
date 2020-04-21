@@ -1,5 +1,7 @@
 package com.rscnn.network;
 
+import android.util.Log;
+
 import com.rscnn.layers.Convolution;
 import com.rscnn.layers.InnerProduct;
 import com.rscnn.layers.Input;
@@ -7,6 +9,7 @@ import com.rscnn.layers.ReLU;
 import com.rscnn.utils.LogUtil;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -211,6 +214,7 @@ public class LayerGraph {
 
         temp = System.currentTimeMillis() - temp;
         LogUtil.w("LayerGraph","compute time: total time " + temp + " ms.");
+        Log.d("execute.out: ",output.toString());
         return output;
     }
 
