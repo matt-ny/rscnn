@@ -1,0 +1,19 @@
+{
+    "classifier_id": "fd70e202-e490-4960-8520-b11a346c7e57.objects.default_1",
+    "name": "object_detector",
+    "status": "ready",
+    "explanation": "Model generated.",
+    "owner": "a25b86d3-754f-4171-af3a-0166ed861895",
+    "created": "2020-03-24T04:50:36.086Z",
+    "classes": [
+        {
+            "class": "Lego"
+        }
+    ],
+    "core_ml_enabled": false,
+    "rscnn_enabled": true,
+    "detection_enabled": true,
+    "retrained": "2020-04-02T03:33:01.942Z",
+    "train_dimension": 300,
+    "customer_id": ""
+}
