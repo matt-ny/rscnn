@@ -68,8 +68,10 @@ public class NMS {
 
 	        int confThreshIndex = 0;
 	        sigma = Math.max(0.001, sigma); // sigma should be >0
-			
-	        while (score[++confThreshIndex] >= confThresh) { }// find last possible index to be output
+
+	        while (confThreshIndex<score.length && (score[confThreshIndex] >= confThresh)) {
+	                confThreshIndex++;
+	            }  // find last possible index to be output
 
 	        int count = 0;
 	        for(int i=0;i<confThreshIndex;i++){
@@ -86,7 +88,7 @@ public class NMS {
 	        }
 	        // now the scores may be out of order due to softening from overlapped boxes
             long temp = System.currentTimeMillis();
-            quickSortScore(anchors, score, 0, confThreshIndex);
+            quickSortScore(anchors, score, 0, confThreshIndex-1);
             temp = System.currentTimeMillis() - temp;
             //LogUtil.i("NMS post-sort","sort compute time:  " + temp + " ms.");
 
