@@ -1,4 +1,4 @@
-### Render Script CNN for Android
+### Watson Visual Recognition on Android using RenderScript CNN 
 
 
 The purpose of this repo is to demonstrate an implementation for **deploying custom built detection models** from **Watson Visual Recognition** (using ***MobileNetv1 + SSD***) onto an **Android device**.
@@ -36,7 +36,7 @@ The purpose of this repo is to demonstrate an implementation for **deploying cus
 
 ### [Shortcut](#shortcut)
 
-We have included a model trained from the [data](https://github.com/vperrinfr/Lego_Detection) @vperrinfr made.  
+We have included a model trained from the [data](https://github.com/vperrinfr/Lego_Detection) [@vperrinfr](https://github.com/vperrinfr) made.  
 It's in the folder  `demo/src/main/assets/LegoPersonModel`.  If you don't want this model in your
 app, just delete that folder.  We have also provided some images to test the model with in the `images/testimages` 
 folder of this repo.  Just copy them to your device or emulator to use them with this demo model.
