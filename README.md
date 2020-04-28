@@ -1,48 +1,53 @@
-### Watson Visual Recognition on Android using RenderScript CNN 
+# Watson Visual Recognition on Android
 
-
-The purpose of this repo is to demonstrate an implementation for **deploying custom built detection models** from **Watson Visual Recognition** (using ***MobileNetv1 + SSD***) onto an **Android device**.
-
+This repo demonstrates how to deploy custom object detection models from Watson Visual Recognition to an Android device. It uses RenderScript CNN with a MobileNetv1 + SSD implementation.
 
 <p>
   <img src="/images/lego-demo.jpg" width="100" syle="padding: 40px" >
 </p>
 
-### What You'll Need
+## Before you begin
 
-1) Android Studio w/ API 28
+Make sure that you have an up-to-date version of [Android Studio](https://developer.android.com/studio) and the Android SDK (API level 28 or later).
 
-2) An instance of the IBM [Watson Visual Recognition](https://www.ibm.com/cloud/watson-visual-recognition) cloud service.  There are free and paid plans. Either works fine.
-    - not ready to sign up for Watson? Check out the [shortcut](#shortcut) below.
+## Create a custom object detection model
 
-### Overview
+You can create a custom object detection model by using the API or Watson Studio. Or you can use the already trained [model](#trained-model).
 
-1. Create a custom object detection model with Watson Visual Recognition.
-    - see [Object Detection in 5 Minutes](https://medium.com/@vincent.perrin/watson-visual-recognition-object-detection-in-action-in-5-minutes-8f97c4b613c3) for how to do this
-    
-2. Download your model as a zip file, using the API endpoint [GET /v4/collections/{collection_id}/model/?version=2019-05-20&feature=objects&model_format=rscnn](https://cloud.ibm.com/apidocs/visual-recognition/visual-recognition-v4#create-a-collection) (link to update)
+- To create a model in a graphical interface, use [Watson Studio](https://dataplatform.ibm.com/registration/stepone?target=watson_vision_combined&context=wdp&apps=watson_studio&cm_sp=WatsonPlatform-WatsonPlatform-_-OnPageNavCTA-IBMWatson_VisualRecognition-_-docs).
+- To use the API, see [How to use Custom Object Detection](https://cloud.ibm.com/docs/visual-recognition?topic=visual-recognition-object-detection-overview#object-detection-sequence).
 
-3. Create a subfolder in this repo under `demo/src/main/assets/` named after your model, such as `MyModel`.
- 
-4. Unzip the contents of your downloaded zip file into your new assets subfolder, `MyModel`
+> **_Tip:_**  Use the [Lego Detection with Watson Visual Recognition](https://github.com/vperrinfr/Lego_Detection) project to create an example model in less than 10 minutes
 
-5. Repeat steps 2 - 4 for any additional models you want to use.
+## Download the model
 
-6. Deploy the project to your Android device or emulator in the Studio.
+If you created a model, use the API to download it.
 
-7. Select a model from the drop down spinner, and select test image to run the model on.
-    - the spinner will show the folder name you used for the model and its UUID
-    - the results will be overlaid on the image.
+1.  Create a directory in `demo/src/main/assets/` for your model, for example `demo/src/main/assets/mymodel`. If you have multiple models, create a separate directory for each.
+1.  Use the [`Get a model` method](https://cloud.ibm.com/apidocs/visual-recognition/visual-recognition-v4#get-an-android-model) in the API to download the model. You might need to use the `List collections` method to find the collection ID.
+1.  Extract the downloaded .zip model file to your new directory (`mymodel`).
 
-### [Shortcut](#shortcut)
+## Deploy the app
 
-We have included a model trained from the [data](https://github.com/vperrinfr/Lego_Detection) [@vperrinfr](https://github.com/vperrinfr) made.  
-It's in the folder  `demo/src/main/assets/LegoPersonModel`.  If you don't want this model in your
-app, just delete that folder.  We have also provided some images to test the model with in the `images/testimages` 
-folder of this repo.  Just copy them to your device or emulator to use them with this demo model.
+To use the app on the Android Emulator, copy images that you want to analyze to the virtual device. For example, copy the images in the `images/testimages` directory if you're using the included `LegoPersonModel`.
 
-Quickstart with the Lego model:
-1. Deploy the project to your Android device or emulator in the Studio.
+## Run the app
 
-2. Select the LegoPersonModel  from the drop down spinner, and select test image to run the model on.
-    - the results will be overlaid on the image.
+When you run the app, you select your object detection model that you downloaded.
+
+1.  On your device or the emulator, select your object detection model. It is identified by the directory name that you created for the model and the collection ID.
+
+    > **_Tip:_** To use the [included model](#trained-model), select `LegoPersonModel`
+
+1.  Click **Select Image** and choose an image from the device.
+1.  Adjust the output:
+    - Set the **Confidence threshold**, which is the minimum score that a feature must have to be returned.
+    - Set the **Soft NMS Sigma**, which controls how much the score of one bounding box is penalized by an overlapping box with the same label and higher score. A higher setting might display extra boxes around an object. Use a lower setting when you don’t expect much overlap of objects of the same name.
+
+## Trained model
+
+You can use the already trained model in this project by itself or with your own models. It is trained from the [Lego Detection with Watson Visual Recognition](https://github.com/vperrinfr/Lego_Detection) project.
+
+The model is in the `demo/src/main/assets/LegoPersonModel` directory and is deployed with your app. If you don't want this model in your app, delete that directory before you deploy it.
+
+You can use the model against the images in the `images/testimages` directory. Make sure to copy them to your device or virtual device.
