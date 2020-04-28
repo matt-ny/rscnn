@@ -24,7 +24,7 @@ You can create a custom object detection model by using the API or Watson Studio
 If you created a model, use the API to download it.
 
 1.  Create a directory in `demo/src/main/assets/` for your model, for example `demo/src/main/assets/mymodel`. If you have multiple models, create a separate directory for each.
-1.  Use the [`Get a model` method](https://cloud.ibm.com/apidocs/visual-recognition/visual-recognition-v4#get-an-android-model) in the API to download the model. You might need to use the `List collections` method to find the collection ID.
+1.  Use the [`Get a model` method](https://cloud.ibm.com/apidocs/visual-recognition/visual-recognition-v4#get-a-model) in the API to download the model. You might need to use the `List collections` method to find the collection ID.
 1.  Extract the downloaded .zip model file to your new directory (`mymodel`).
 
 ## Deploy the app
@@ -40,9 +40,10 @@ When you run the app, you select your object detection model that you downloaded
     > **_Tip:_** To use the [included model](#trained-model), select `LegoPersonModel`
 
 1.  Click **Select Image** and choose an image from the device.
-1.  Adjust the output:
+1.  About the controls:
     - Set the **Confidence threshold**, which is the minimum score that a feature must have to be returned.
     - Set the **Soft NMS Sigma**, which controls how much the score of one bounding box is penalized by an overlapping box with the same label and higher score. A higher setting might display extra boxes around an object. Use a lower setting when you don’t expect much overlap of objects of the same name.
+    - After changing a control value, you must re-apply the model via the **Select Image** button to see updated results.
 
 ## Trained model
 
@@ -50,4 +51,4 @@ You can use the already trained model in this project by itself or with your own
 
 The model is in the `demo/src/main/assets/LegoPersonModel` directory and is deployed with your app. If you don't want this model in your app, delete that directory before you deploy it.
 
-You can use the model against the images in the `images/testimages` directory. Make sure to copy them to your device or virtual device.
+You can test the model with the images in the `images/testimages` directory. Make sure to copy them to your device or virtual device.
