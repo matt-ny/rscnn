@@ -2,6 +2,8 @@
 
 This repo demonstrates how to deploy custom object detection models from Watson Visual Recognition to an Android device. It uses RenderScript CNN with a MobileNetv1 + SSD implementation.
 
+Note that the [IBM Watson Visual Recognition cloud API will be discontinued.](https://cloud.ibm.com/apidocs/visual-recognition-v4) You can still use this repo to deploy object detection models on Android, but you will no longer be able to use Watson to create the models.
+
 <p>
   <img src="/images/lego-demo.jpg" width="100" syle="padding: 40px" >
 </p>
